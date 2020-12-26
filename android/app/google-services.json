@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063428200327",
+    "project_id": "riskfactor-c8ef1",
+    "storage_bucket": "riskfactor-c8ef1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063428200327:android:7bc0a4090a537d29066522",
+        "android_client_info": {
+          "package_name": "com.riskfactor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063428200327-bqek3mest62g369eip27f9oiv8gec9r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5I3MQJrF0ZdMeZcqYCbvnBnSv9HEnnoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063428200327-bqek3mest62g369eip27f9oiv8gec9r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
