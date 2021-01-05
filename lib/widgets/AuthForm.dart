@@ -6,21 +6,28 @@ import 'package:riskfactor/widgets/AuthButton.dart';
 class InputValidationTechnique {
   static final email = ValidationBuilder()
       .required("This field is required")
+      .minLength(1, "This field is required")
       .email("Not a valid email address");
   static final password = ValidationBuilder()
       .required("This field is required")
+      .minLength(1, "This field is required")
       .minLength(8, "Password must be at least 8 characters")
       .regExp(RegExp(r'[A-Z]+'), "Password must have a capital letter")
       .regExp(RegExp(r'[a-z]+'), "Password must have a letter")
       .regExp(RegExp(r'[0-9]+'), "Password must have a number");
   static final name = ValidationBuilder()
       .required("This field is required")
+      .minLength(1, "This field is required")
       .minLength(2, "Name must be at least 2 characters")
       .maxLength(256, "Name must be at most 256 characters")
       .regExp(RegExp(r'[a-zA-Z]+'), "Name mustn't contain symbols");
   static final number = ValidationBuilder()
       .required("This field is required")
+      .minLength(1, "This field is required")
       .regExp(RegExp(r'^\d+(\.\d+)?$'), "You must input a number");
+  static final text = ValidationBuilder()
+      .required("This field is required")
+      .minLength(1, "This field is required");
 }
 
 class InputField {
@@ -34,8 +41,9 @@ class InputField {
   final TextInputAction textInputAction;
   final bool autofocus;
   final FormFieldValidator<String> validator;
+  String value;
 
-  const InputField({
+  InputField({
     this.placeholderText,
     this.inputType,
     this.suffixText = "",
@@ -46,6 +54,7 @@ class InputField {
     this.textInputAction = TextInputAction.next,
     this.autofocus = false,
     this.validator,
+    this.value,
   });
 }
 
@@ -64,12 +73,14 @@ class AuthForm extends StatelessWidget {
   final int stepsLength;
   final Function advanceStep;
   final bool stepped;
+  final Function(String, int) onTextChanged;
   AuthForm({
     this.step,
     this.stepNumber,
     this.stepsLength,
     this.advanceStep,
     this.stepped = true,
+    this.onTextChanged,
   });
 
   List<Widget> getFormWidget(BuildContext context, AuthFormStep _step) {
@@ -99,6 +110,7 @@ class AuthForm extends StatelessWidget {
           keyboardAppearance: Theme.of(context).brightness,
           textInputAction: field.textInputAction,
           textCapitalization: field.textCapitalization,
+          onChanged: (val) => onTextChanged(val, i),
           onEditingComplete: () {
             if (i == step.fields.length - 1) {
               FocusScope.of(context).unfocus();

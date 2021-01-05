@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +27,7 @@ final List<AuthFormStep> _steps = [
     ],
   ),
   AuthFormStep(
-    titleText: "Please input your email address below",
+    titleText: "Please choose an email address and password",
     fields: [
       InputField(
         validator: InputValidationTechnique.email.build(),
@@ -35,11 +37,6 @@ final List<AuthFormStep> _steps = [
         textInputAction: TextInputAction.go,
         autofocus: true,
       ),
-    ],
-  ),
-  AuthFormStep(
-    titleText: "Pick a strong password",
-    fields: [
       InputField(
         validator: InputValidationTechnique.password.build(),
         placeholderText: "Password",
@@ -49,16 +46,6 @@ final List<AuthFormStep> _steps = [
         obscureText: true,
         textCapitalization: TextCapitalization.none,
         autofocus: true,
-      ),
-      InputField(
-        validator: InputValidationTechnique.password.build(),
-        placeholderText: "Repeat Password",
-        inputType: TextInputType.text,
-        autocorrect: false,
-        enableSuggestions: false,
-        obscureText: true,
-        textCapitalization: TextCapitalization.none,
-        textInputAction: TextInputAction.go,
       ),
     ],
   ),
@@ -95,6 +82,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _loading = false;
+  String _error;
 
   @override
   Widget build(BuildContext context) {
@@ -108,15 +97,31 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.all(32.0),
             child: Column(
               children: [
-                Text(
-                  "Register",
-                  style: GoogleFonts.sourceSansPro(fontSize: 64),
-                ),
-                Text(
-                  _steps[_stepNumber].titleText,
-                  style: GoogleFonts.sourceSansPro(fontSize: 16.0),
-                  textAlign: TextAlign.center,
-                ),
+                if (_loading) CircularProgressIndicator(),
+                if (!_loading)
+                  Column(
+                    children: [
+                      Text(
+                        "Register",
+                        style: GoogleFonts.sourceSansPro(fontSize: 64),
+                      ),
+                      Text(
+                        _steps[_stepNumber].titleText,
+                        style: GoogleFonts.sourceSansPro(fontSize: 16.0),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                if (_error != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      _error,
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: 12.0, color: Colors.red),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 Spacer(),
                 Form(
                   key: _formKey,
@@ -124,15 +129,67 @@ class _RegisterPageState extends State<RegisterPage> {
                     step: _steps[_stepNumber],
                     stepNumber: _stepNumber,
                     stepsLength: _steps.length,
-                    advanceStep: () {
+                    onTextChanged: (val, fieldNumber) {
+                      setState(() {
+                        _steps[_stepNumber].fields[fieldNumber].value = val;
+                      });
+                    },
+                    advanceStep: () async {
+                      var step1 = _steps[0].fields;
+                      var step2 = _steps[1].fields;
+                      var step3 = _steps[2].fields;
+
+                      var firstName = step1[0].value, lastName = step1[1].value;
+                      var email = step2[0].value, password = step2[1].value;
+                      var height = step3[0].value, weight = step3[0].value;
+
                       final devMode =
                           Provider.of<Config>(context, listen: false).devMode;
+
                       if (devMode || _formKey.currentState.validate()) {
-                        if (_stepNumber == _steps.length - 1)
-                          Navigator.of(context).pushNamed(Routes.home);
-                        else
+                        if (_stepNumber == _steps.length - 1) {
+                          if (!devMode) {
+                            final firebaseAuth = Provider.of<FirebaseAuth>(
+                                context,
+                                listen: false);
+                            final firebaseFirestore =
+                                Provider.of<FirebaseFirestore>(context,
+                                    listen: false);
+                            setState(() {
+                              _loading = true;
+                            });
+                            try {
+                              UserCredential userCredential = await firebaseAuth
+                                  .createUserWithEmailAndPassword(
+                                      email: email, password: password);
+                              DocumentReference ref = firebaseFirestore
+                                  .collection('users')
+                                  .doc(userCredential.user.uid);
+                              await ref.set({
+                                "name": firstName + " " + lastName,
+                                "email": email,
+                                "height": height,
+                                "weight": weight,
+                              });
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  Routes.home, (_) => false);
+                            } on FirebaseAuthException catch (e) {
+                              setState(() {
+                                _error = e.message;
+                              });
+                            } catch (e) {
+                              setState(() {
+                                _error = e.toString();
+                              });
+                            }
+                            setState(() {
+                              _loading = false;
+                            });
+                          }
+                        } else {
                           Navigator.of(context).pushNamed(Routes.register,
                               arguments: _stepNumber + 1);
+                        }
                       }
                     },
                   ),

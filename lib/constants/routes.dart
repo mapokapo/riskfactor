@@ -9,7 +9,7 @@ import 'package:riskfactor/pages/auth/ForgotPassPage.dart';
 import 'package:riskfactor/pages/home/HomePage.dart';
 
 class Routes {
-  static const String landing = '/';
+  static const String landing = '/landing';
   static const String signIn = '/signin';
   static const String register = '/register';
   static const String forgotPass = '/forgotpass';
@@ -17,7 +17,7 @@ class Routes {
 
   static Map<String, Widget Function(BuildContext context)> routes() {
     return {
-      '/': (_) => LandingPage(),
+      '/landing': (_) => LandingPage(),
       '/signin': (_) => SignInPage(),
       '/register': (_) => RegisterPage(),
       '/forgotposs': (_) => ForgotPassPage(),

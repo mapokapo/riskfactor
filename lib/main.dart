@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,14 +24,16 @@ void main() async {
   SharedPreferences _sharedPreferencesInstance =
       await SharedPreferences.getInstance();
   FirebaseAuth _firebaseAuthInstance = FirebaseAuth.instance;
+  FirebaseFirestore _firebaseFirestoreInstance = FirebaseFirestore.instance;
   // App config
-  Config _appConfig = Config(devMode: true, initialRoute: Routes.landing);
+  Config _appConfig = Config(devMode: false, initialRoute: Routes.landing);
   if (_firebaseAuthInstance.currentUser != null) {
     _appConfig.initialRoute = Routes.home;
   }
   /* End Provider instances */
   List<SingleChildWidget> providers = [
     Provider(create: (context) => _firebaseAuthInstance),
+    Provider(create: (context) => _firebaseFirestoreInstance),
     Provider(create: (context) => _sharedPreferencesInstance),
     Provider(create: (context) => _appConfig),
     ChangeNotifierProvider(create: (context) => ThemeNotifier()),
