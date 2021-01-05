@@ -1,118 +1,64 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
+import 'package:riskfactor/constants/routes.dart';
+import 'package:riskfactor/constants/theme_data.dart';
+import 'package:riskfactor/state/ThemeNotifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp());
+import 'constants/config.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  // Have to do this in order to use Firebase
+  await Firebase.initializeApp();
+
+  /* Begin Provider instances */
+  SharedPreferences _sharedPreferencesInstance =
+      await SharedPreferences.getInstance();
+  FirebaseAuth _firebaseAuthInstance = FirebaseAuth.instance;
+  // App config
+  Config _appConfig = Config(devMode: true, initialRoute: Routes.landing);
+  if (_firebaseAuthInstance.currentUser != null) {
+    _appConfig.initialRoute = Routes.home;
+  }
+  /* End Provider instances */
+  List<SingleChildWidget> providers = [
+    Provider(create: (context) => _firebaseAuthInstance),
+    Provider(create: (context) => _sharedPreferencesInstance),
+    Provider(create: (context) => _appConfig),
+    ChangeNotifierProvider(create: (context) => ThemeNotifier()),
+  ];
+
+  runApp(MyApp(_appConfig, providers));
 }
 
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool _error = false;
-
-  FirebaseFirestore _instance;
-
-  void initializeFlutterFire() async {
-    try {
-      await Firebase.initializeApp();
-      setState(() {
-        _instance = FirebaseFirestore.instance;
-      });
-    } catch (e) {
-      setState(() {
-        _error = true;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    initializeFlutterFire();
-    super.initState();
-  }
-
-  Widget _getLoadingWidget([String _label = "Initializing Firebase..."]) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              Text(_label),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _getErrorWidget(
-      [String _label = "An error has occurred. Please try again"]) {
-    return Scaffold(
-      body: Center(
-        child: Text(_label),
-      ),
-    );
-  }
-
-  Widget _getSuccessWidget() {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Riskfactor"),
-      ),
-      body: StreamBuilder(
-        stream: _instance.collection("users").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return _getErrorWidget("Couldn't retrieve users.");
-          }
-
-          if (snapshot.connectionState == ConnectionState.active) {
-            List<String> userNames = snapshot.data.docs
-                .map((user) => user.data()['name'].toString())
-                .toList();
-            return SafeArea(
-              child: Container(
-                child: Center(
-                  child: ListView.builder(
-                      itemCount: userNames.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          title: Text(userNames[index]),
-                        );
-                      }),
-                ),
-              ),
-            );
-          }
-
-          return _getLoadingWidget("Getting all users...");
-        },
-      ),
-    );
-  }
+  final Config _appConfig;
+  final List<SingleChildWidget> _providers;
+  MyApp(this._appConfig, this._providers, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (_error) return _getErrorWidget();
-    if (_instance == null) return _getLoadingWidget();
-    return _getSuccessWidget();
+    return MultiProvider(
+      providers: _providers,
+      builder: (BuildContext context, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: _appConfig.devMode,
+          title: 'RiskFactor',
+          theme: Provider.of<ThemeNotifier>(context).darkTheme
+              ? darkTheme
+              : lightTheme,
+          initialRoute: _appConfig.initialRoute,
+          routes: Routes.routes(),
+        );
+      },
+    );
   }
 }
