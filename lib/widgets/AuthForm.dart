@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:provider/provider.dart';
+import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:riskfactor/widgets/AuthButton.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InputValidationTechnique {
-  static final email = ValidationBuilder()
-      .required("This field is required")
-      .minLength(1, "This field is required")
-      .email("Not a valid email address");
-  static final password = ValidationBuilder()
-      .required("This field is required")
-      .minLength(1, "This field is required")
-      .minLength(8, "Password must be at least 8 characters")
-      .regExp(RegExp(r'[A-Z]+'), "Password must have a capital letter")
-      .regExp(RegExp(r'[a-z]+'), "Password must have a letter")
-      .regExp(RegExp(r'[0-9]+'), "Password must have a number");
-  static final name = ValidationBuilder()
-      .required("This field is required")
-      .minLength(1, "This field is required")
-      .minLength(2, "Name must be at least 2 characters")
-      .maxLength(256, "Name must be at most 256 characters")
-      .regExp(RegExp(r'[a-zA-Z]+'), "Name mustn't contain symbols");
-  static final number = ValidationBuilder()
-      .required("This field is required")
-      .minLength(1, "This field is required")
-      .regExp(RegExp(r'^\d+(\.\d+)?$'), "You must input a number");
-  static final text = ValidationBuilder()
-      .required("This field is required")
-      .minLength(1, "This field is required");
+  static ValidationBuilder email(BuildContext context) => ValidationBuilder()
+      .required(AppLocalizations.of(context).validationRequiredField)
+      .minLength(1, AppLocalizations.of(context).validationRequiredField)
+      .email(AppLocalizations.of(context).validationInvalidEmail);
+  static ValidationBuilder password(BuildContext context) => ValidationBuilder()
+      .required(AppLocalizations.of(context).validationRequiredField)
+      .minLength(1, AppLocalizations.of(context).validationRequiredField)
+      .minLength(
+          8, AppLocalizations.of(context).validationPasswordMin8Characters)
+      .regExp(RegExp(r'[a-z]+'),
+          AppLocalizations.of(context).validationPasswordLetter)
+      .regExp(RegExp(r'[A-Z]+'),
+          AppLocalizations.of(context).validationPasswordCapitalLetter)
+      .regExp(RegExp(r'[0-9]+'),
+          AppLocalizations.of(context).validationPasswordNumber);
+  static ValidationBuilder name(BuildContext context) => ValidationBuilder()
+      .required(AppLocalizations.of(context).validationRequiredField)
+      .minLength(1, AppLocalizations.of(context).validationRequiredField)
+      .minLength(2, AppLocalizations.of(context).validationNameMin2Characters)
+      .maxLength(
+          256, AppLocalizations.of(context).validationNameMax256Characters)
+      .regExp(RegExp(r'[a-zA-Z]+'),
+          AppLocalizations.of(context).validationNameSymbols);
+  static ValidationBuilder number(BuildContext context) => ValidationBuilder()
+      .required(AppLocalizations.of(context).validationRequiredField)
+      .minLength(1, AppLocalizations.of(context).validationRequiredField)
+      .regExp(RegExp(r'^\d+(\.\d+)?$'),
+          AppLocalizations.of(context).validationNotANumber);
+  static ValidationBuilder text(BuildContext context) => ValidationBuilder()
+      .required(AppLocalizations.of(context).validationRequiredField)
+      .minLength(1, AppLocalizations.of(context).validationRequiredField);
 }
 
 class InputField {
@@ -61,10 +71,14 @@ class InputField {
 class AuthFormStep {
   final String titleText;
   final List<InputField> fields;
-  final String submitButtonText;
+  String submitButtonText;
 
-  const AuthFormStep(
-      {this.titleText, this.fields, this.submitButtonText = "Next"});
+  AuthFormStep(BuildContext context,
+      {this.titleText, this.fields, String submitButtonText}) {
+    this.submitButtonText = submitButtonText != null
+        ? submitButtonText
+        : AppLocalizations.of(context).next;
+  }
 }
 
 class AuthForm extends StatelessWidget {
@@ -101,7 +115,17 @@ class AuthForm extends StatelessWidget {
             border: OutlineInputBorder(),
             hintText: field.placeholderText,
             suffixText: field.suffixText,
+            filled: true,
+            fillColor: Provider.of<ThemeNotifier>(context).darkTheme
+                ? Colors.black.withOpacity(0.9)
+                : Colors.white.withOpacity(0.9),
+            errorStyle: Theme.of(context).textTheme.subtitle1.copyWith(
+                  color: Provider.of<ThemeNotifier>(context).darkTheme
+                      ? Colors.red.shade100
+                      : Colors.red.shade900,
+                ),
           ),
+          style: Theme.of(context).textTheme.bodyText2,
           keyboardType: field.inputType,
           obscureText: field.obscureText,
           enableSuggestions: field.enableSuggestions,

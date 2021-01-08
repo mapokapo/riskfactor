@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AuthButton extends StatelessWidget {
   final String title;
@@ -17,13 +16,12 @@ class AuthButton extends StatelessWidget {
           child: Center(
             child: Text(
               title.toUpperCase(),
-              style: GoogleFonts.sourceSansPro(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-              ),
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
             ),
           ),
         ),

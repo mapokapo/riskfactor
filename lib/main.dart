@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:riskfactor/constants/language.dart';
 import 'package:riskfactor/constants/routes.dart';
 import 'package:riskfactor/constants/theme_data.dart';
+import 'package:riskfactor/state/LanguageNotifier.dart';
 import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'constants/config.dart';
 
@@ -37,6 +40,7 @@ void main() async {
     Provider(create: (context) => _sharedPreferencesInstance),
     Provider(create: (context) => _appConfig),
     ChangeNotifierProvider(create: (context) => ThemeNotifier()),
+    ChangeNotifierProvider(create: (context) => LanguageNotifier(context))
   ];
 
   runApp(MyApp(_appConfig, providers));
@@ -53,6 +57,9 @@ class MyApp extends StatelessWidget {
       providers: _providers,
       builder: (BuildContext context, _) {
         return MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: Provider.of<LanguageNotifier>(context).currentLocale,
           debugShowCheckedModeBanner: _appConfig.devMode,
           title: 'RiskFactor',
           theme: Provider.of<ThemeNotifier>(context).darkTheme

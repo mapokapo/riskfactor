@@ -1,0 +1,225 @@
+{
+  "@@locale": "en",
+  "worldwideCovid19Cases": "Worldwide COVID-19 cases",
+  "@worldwideCovid19Cases": {
+    "type": "text",
+    "description": "Worldwide COVID-19 cases",
+    "placeholders": {}
+  },
+  "loading": "Loading",
+  "@loading": {
+    "type": "text",
+    "description": "Loading",
+    "placeholders": {}
+  },
+  "signIn": "Sign In",
+  "@signIn": {
+    "type": "text",
+    "description": "Sign In",
+    "placeholders": {}
+  },
+  "register": "Register",
+  "@register": {
+    "type": "text",
+    "description": "Register",
+    "placeholders": {}
+  },
+  "email": "Email",
+  "@email": {
+    "type": "text",
+    "description": "Email",
+    "placeholders": {}
+  },
+  "password": "Password",
+  "@password": {
+    "type": "text",
+    "description": "Password",
+    "placeholders": {}
+  },
+  "signInFormTitle": "Please input your email address and password below",
+  "@signInFormTitle": {
+    "type": "text",
+    "description": "Please input your email address and password below",
+    "placeholders": {}
+  },
+  "registerFormStep1Title": "Welcome to RiskFactor!\nPlease input your full name below",
+  "@registerFormStep1Title": {
+    "type": "text",
+    "description": "Welcome to RiskFactor! Please input your full name below",
+    "placeholders": {}
+  },
+  "firstName": "First Name",
+  "@firstName": {
+    "type": "text",
+    "description": "First Name",
+    "placeholders": {}
+  },
+  "lastName": "Last Name",
+  "@lastName": {
+    "type": "text",
+    "description": "Last Name",
+    "placeholders": {}
+  },
+  "registerFormStep2Title": "Please choose an email address and password",
+  "@registerFormStep2Title": {
+    "type": "text",
+    "description": "Please choose an email address and password",
+    "placeholders": {}
+  },
+  "registerFormStep3Title": "We need some basic information about you",
+  "@registerFormStep3Title": {
+    "type": "text",
+    "description": "We need some basic information about you",
+    "placeholders": {}
+  },
+  "height": "Height",
+  "@height": {
+    "type": "text",
+    "description": "Height",
+    "placeholders": {}
+  },
+  "weight": "Weight",
+  "@weight": {
+    "type": "text",
+    "description": "Weight",
+    "placeholders": {}
+  },
+  "registerFormStep4Title": "Finished!\nYou can now proceed to Riskfactor",
+  "@registerFormStep4Title": {
+    "type": "text",
+    "description": "Finished! You can now proceed to Riskfactor",
+    "placeholders": {}
+  },
+  "finish": "Finish",
+  "@finish": {
+    "type": "text",
+    "description": "Finish",
+    "placeholders": {}
+  },
+  "validationRequiredField": "This field is required",
+  "@validationRequiredField": {
+    "type": "text",
+    "description": "This field is required",
+    "placeholders": {}
+  },
+  "validationInvalidEmail": "Not a valid email address",
+  "@validationInvalidEmail": {
+    "type": "text",
+    "description": "Not a valid email address",
+    "placeholders": {}
+  },
+  "validationPasswordMin8Characters": "Password must be at least 8 characters",
+  "@validationPasswordMin8Characters": {
+    "type": "text",
+    "description": "Password must be at least 8 characters",
+    "placeholders": {}
+  },
+  "validationPasswordCapitalLetter": "Password must have a capital letter",
+  "@validationPasswordCapitalLetter": {
+    "type": "text",
+    "description": "Password must have a capital letter",
+    "placeholders": {}
+  },
+  "validationPasswordLetter": "Password must have a letter",
+  "@validationPasswordLetter": {
+    "type": "text",
+    "description": "Password must have a letter",
+    "placeholders": {}
+  },
+  "validationPasswordNumber": "Password must have a number",
+  "@validationPasswordNumber": {
+    "type": "text",
+    "description": "Password must have a number",
+    "placeholders": {}
+  },
+  "validationNameMin2Characters": "Name must be at least 2 characters",
+  "@validationNameMin2Characters": {
+    "type": "text",
+    "description": "Name must be at least 2 characters",
+    "placeholders": {}
+  },
+  "validationNameMax256Characters": "Name must be at most 256 characters",
+  "@validationNameMax256Characters": {
+    "type": "text",
+    "description": "Name must be at most 256 characters",
+    "placeholders": {}
+  },
+  "validationNameSymbols": "Name mustn't contain symbols",
+  "@validationNameSymbols": {
+    "type": "text",
+    "description": "Name mustn't contain symbols",
+    "placeholders": {}
+  },
+  "validationNotANumber": "You must input a number",
+  "@validationNotANumber": {
+    "type": "text",
+    "description": "You must input a number",
+    "placeholders": {}
+  },
+  "next": "Next",
+  "@next": {
+    "type": "text",
+    "description": "Next",
+    "placeholders": {}
+  },
+  "welcome": "Welcome",
+  "@welcome": {
+    "type": "text",
+    "description": "Welcome",
+    "placeholders": {}
+  },
+  "healthStatus": "Health status",
+  "@healthStatus": {
+    "type": "text",
+    "description": "Health status",
+    "placeholders": {}
+  },
+  "unavailable": "Unavailable",
+  "@unavailable": {
+    "type": "text",
+    "description": "Unavailable",
+    "placeholders": {}
+  },
+  "infectionRisk": "Risk of infection",
+  "@infectionRisk": {
+    "type": "text",
+    "description": "Risk of infection",
+    "placeholders": {}
+  },
+  "fetchErrorReopenApp": "Error fetching data. Please reopen the app to continue.",
+  "@fetchErrorReopenApp": {
+    "type": "text",
+    "description": "Error fetching data. Please reopen the app to continue.",
+    "placeholders": {}
+  },
+  "signOutConfirmation": "Are you sure you want to sign out?",
+  "@signOutConfirmation": {
+    "type": "text",
+    "description": "Are you sure you want to sign out?",
+    "placeholders": {}
+  },
+  "yes": "Yes",
+  "@yes": {
+    "type": "text",
+    "description": "Yes",
+    "placeholders": {}
+  },
+  "no": "No",
+  "@no": {
+    "type": "text",
+    "description": "No",
+    "placeholders": {}
+  },
+  "covid19TestNotCompleted": "You haven't completed the COVID-19 self-assesment test.",
+  "@covid19TestNotCompleted": {
+    "type": "text",
+    "description": "You haven't completed the COVID-19 self-assesment test.",
+    "placeholders": {}
+  },
+  "clickHereToStart": "Click here to start",
+  "@clickHereToStart": {
+    "type": "text",
+    "description": "Click here to start",
+    "placeholders": {}
+  }
+}

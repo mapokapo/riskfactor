@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:riskfactor/constants/config.dart';
 import 'package:riskfactor/constants/routes.dart';
-import 'package:riskfactor/state/ThemeNotifier.dart';
+import 'package:riskfactor/constants/language.dart';
+import 'package:riskfactor/state/LanguageNotifier.dart';
 import 'package:riskfactor/widgets/AuthButton.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -93,19 +93,31 @@ class _LandingPageState extends State<LandingPage> {
                             FutureBuilder(
                               builder: (BuildContext context,
                                   AsyncSnapshot<int> snapshot) {
-                                String text = 'Worldwide COVID-19 cases: ';
+                                String text = AppLocalizations.of(context)
+                                        .worldwideCovid19Cases +
+                                    ": ";
                                 switch (snapshot.connectionState) {
                                   case ConnectionState.waiting:
-                                    return Text(text + 'Loading',
-                                        style: GoogleFonts.sourceSansPro());
+                                    return Text(
+                                      text +
+                                          AppLocalizations.of(context).loading,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText2,
+                                    );
                                   default:
                                     if (snapshot.hasError)
                                       return Text(' ',
-                                          style: GoogleFonts.sourceSansPro());
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2);
                                     else
                                       return Text(
-                                          text + snapshot.data.toString(),
-                                          style: GoogleFonts.sourceSansPro());
+                                        text + snapshot.data.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                        textAlign: TextAlign.center,
+                                      );
                                 }
                               },
                               future: _casesFuture,
@@ -123,7 +135,7 @@ class _LandingPageState extends State<LandingPage> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 8.0),
                             child: AuthButton(
-                              title: 'sign in',
+                              title: AppLocalizations.of(context).signIn,
                               onClick: () {
                                 Navigator.of(context).pushNamed(Routes.signIn);
                               },
@@ -133,7 +145,7 @@ class _LandingPageState extends State<LandingPage> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 8.0),
                             child: AuthButton(
-                              title: 'register',
+                              title: AppLocalizations.of(context).register,
                               onClick: () {
                                 Navigator.of(context)
                                     .pushNamed(Routes.register);
@@ -145,6 +157,29 @@ class _LandingPageState extends State<LandingPage> {
                     )
                   ],
                 ),
+              ),
+              DropdownButton(
+                underline: SizedBox(),
+                icon: Icon(
+                  Icons.language,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onChanged: (Language lang) {
+                  context
+                      .read<LanguageNotifier>()
+                      .changeLanguage(Locale(lang.languageCode));
+                },
+                items: Language.languageList()
+                    .map((lang) => DropdownMenuItem(
+                          value: lang,
+                          child: Row(
+                            children: [
+                              Text(lang.name),
+                              Text(lang.flag),
+                            ],
+                          ),
+                        ))
+                    .toList(),
               ),
             ],
           ),
