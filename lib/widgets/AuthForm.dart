@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:riskfactor/widgets/AuthButton.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:riskfactor/widgets/GenderSelector.dart';
 
 class InputValidationTechnique {
   static ValidationBuilder email(BuildContext context) => ValidationBuilder()
@@ -35,6 +36,11 @@ class InputValidationTechnique {
       .minLength(1, AppLocalizations.of(context).validationRequiredField)
       .regExp(RegExp(r'^\d+(\.\d+)?$'),
           AppLocalizations.of(context).validationNotANumber);
+  static ValidationBuilder integer(BuildContext context) => ValidationBuilder()
+      .required(AppLocalizations.of(context).validationRequiredField)
+      .minLength(1, AppLocalizations.of(context).validationRequiredField)
+      .regExp(RegExp(r'^\d+?$'),
+          AppLocalizations.of(context).validationNotAnInteger);
   static ValidationBuilder text(BuildContext context) => ValidationBuilder()
       .required(AppLocalizations.of(context).validationRequiredField)
       .minLength(1, AppLocalizations.of(context).validationRequiredField);
@@ -51,6 +57,8 @@ class InputField {
   final TextInputAction textInputAction;
   final bool autofocus;
   final FormFieldValidator<String> validator;
+  final bool genderPicker;
+  final bool combine;
   String value;
 
   InputField({
@@ -64,6 +72,8 @@ class InputField {
     this.textInputAction = TextInputAction.next,
     this.autofocus = false,
     this.validator,
+    this.genderPicker = false,
+    this.combine = false,
     this.value,
   });
 }
@@ -87,62 +97,130 @@ class AuthForm extends StatelessWidget {
   final int stepsLength;
   final Function advanceStep;
   final bool stepped;
-  final Function(String, int) onTextChanged;
+  final void Function(String, int) onInputChanged;
   AuthForm({
     this.step,
     this.stepNumber,
     this.stepsLength,
     this.advanceStep,
     this.stepped = true,
-    this.onTextChanged,
+    this.onInputChanged,
   });
 
+  Widget getFormField(BuildContext context, InputField field, int verticalIndex,
+      int horizontalIndex, int maxIndex) {
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: horizontalIndex == 0
+              ? 0
+              : KeyboardVisibilityController().isVisible
+                  ? 4
+                  : 8,
+          right: horizontalIndex == maxIndex
+              ? 0
+              : KeyboardVisibilityController().isVisible
+                  ? 4
+                  : 8,
+        ),
+        child: field.genderPicker
+            ? GenderSelector(
+                onChanged: (gender) {
+                  onInputChanged(
+                      gender.codename, verticalIndex + horizontalIndex);
+                },
+              )
+            : TextFormField(
+                validator: field.validator,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: field.placeholderText,
+                  suffixText: field.suffixText,
+                  filled: true,
+                  fillColor: Provider.of<ThemeNotifier>(context).darkTheme
+                      ? Colors.black.withOpacity(0.9)
+                      : Colors.white.withOpacity(0.9),
+                  errorStyle: Theme.of(context).textTheme.subtitle1.copyWith(
+                        color: Provider.of<ThemeNotifier>(context).darkTheme
+                            ? Colors.red.shade100
+                            : Colors.red.shade900,
+                      ),
+                ),
+                style: Theme.of(context).textTheme.bodyText2,
+                keyboardType: field.inputType,
+                obscureText: field.obscureText,
+                enableSuggestions: field.enableSuggestions,
+                autocorrect: field.autocorrect,
+                autofocus: verticalIndex + horizontalIndex == 0 ? true : false,
+                keyboardAppearance: Theme.of(context).brightness,
+                textInputAction: field.textInputAction,
+                textCapitalization: field.textCapitalization,
+                onChanged: (val) =>
+                    onInputChanged(val, verticalIndex + horizontalIndex),
+                onEditingComplete: () {
+                  if (verticalIndex + horizontalIndex ==
+                      step.fields.length - 1) {
+                    FocusScope.of(context).unfocus();
+                    advanceStep();
+                  } else {
+                    FocusScope.of(context).nextFocus();
+                  }
+                },
+              ),
+      ),
+    );
+  }
+
+  List<List<InputField>> getCombinedFields(List<InputField> arr) {
+    List<List<InputField>> resultArr = [];
+    List<InputField> combineArr = [];
+    bool flag = false;
+
+    for (int i = 0; i < arr.length; i++) {
+      if (arr[i].combine) {
+        flag = true;
+        combineArr.add(arr[i]);
+      } else if (flag) {
+        flag = false;
+        resultArr.add(combineArr);
+        combineArr = [];
+        resultArr.add([arr[i]]);
+      } else {
+        resultArr.add([arr[i]]);
+      }
+    }
+
+    if (combineArr.length != 0) resultArr.add(combineArr);
+
+    return resultArr;
+  }
+
   List<Widget> getFormWidget(BuildContext context, AuthFormStep _step) {
-    return _step.fields.asMap().entries.map((entry) {
-      int i = entry.key;
-      InputField field = entry.value;
+    final List<List<InputField>> combinedTextFields =
+        getCombinedFields(_step.fields);
+    return combinedTextFields.asMap().entries.map((entry) {
+      int verticalIndex = entry.key;
+      List<InputField> inputFields = entry.value;
       return Padding(
         padding: EdgeInsets.only(
-            top: 8,
-            bottom: i == _step.fields.length - 1
-                ? KeyboardVisibilityController().isVisible
-                    ? 8
-                    : 32
-                : 8),
-        child: TextFormField(
-          validator: field.validator,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: field.placeholderText,
-            suffixText: field.suffixText,
-            filled: true,
-            fillColor: Provider.of<ThemeNotifier>(context).darkTheme
-                ? Colors.black.withOpacity(0.9)
-                : Colors.white.withOpacity(0.9),
-            errorStyle: Theme.of(context).textTheme.subtitle1.copyWith(
-                  color: Provider.of<ThemeNotifier>(context).darkTheme
-                      ? Colors.red.shade100
-                      : Colors.red.shade900,
-                ),
-          ),
-          style: Theme.of(context).textTheme.bodyText2,
-          keyboardType: field.inputType,
-          obscureText: field.obscureText,
-          enableSuggestions: field.enableSuggestions,
-          autocorrect: field.autocorrect,
-          autofocus: i == 0 ? true : false,
-          keyboardAppearance: Theme.of(context).brightness,
-          textInputAction: field.textInputAction,
-          textCapitalization: field.textCapitalization,
-          onChanged: (val) => onTextChanged(val, i),
-          onEditingComplete: () {
-            if (i == step.fields.length - 1) {
-              FocusScope.of(context).unfocus();
-              advanceStep();
-            } else {
-              FocusScope.of(context).nextFocus();
-            }
-          },
+          top: KeyboardVisibilityController().isVisible ? 4 : 8,
+          bottom: verticalIndex == combinedTextFields.length - 1
+              ? 8
+              : KeyboardVisibilityController().isVisible
+                  ? 4
+                  : 8,
+        ),
+        child: Row(
+          children: [
+            ...inputFields.asMap().entries.map(
+              (entry) {
+                int horizontalIndex = entry.key;
+                InputField field = entry.value;
+                return getFormField(context, field, verticalIndex,
+                    horizontalIndex, inputFields.length - 1);
+              },
+            ).toList(),
+          ],
         ),
       );
     }).toList();
@@ -157,7 +235,7 @@ class AuthForm extends StatelessWidget {
           builder: (context, keyboardOpen) {
             return Padding(
               padding: EdgeInsets.only(
-                  top: keyboardOpen ? 16.0 : 0.0,
+                  top: keyboardOpen ? 0.0 : 16.0,
                   bottom: keyboardOpen ? 0.0 : 16.0,
                   left: 64.0,
                   right: 64.0),

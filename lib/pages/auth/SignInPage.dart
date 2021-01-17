@@ -145,7 +145,7 @@ class _SignInPageState extends State<SignInPage> {
                           step: _steps[_stepNumber],
                           stepNumber: _stepNumber,
                           stepsLength: _steps.length,
-                          onTextChanged: (val, fieldNumber) {
+                          onInputChanged: (val, fieldNumber) {
                             setState(() {
                               _steps[_stepNumber].fields[fieldNumber].value =
                                   val;

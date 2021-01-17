@@ -10,6 +10,12 @@ import 'package:riskfactor/constants/routes.dart';
 import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:riskfactor/widgets/AuthForm.dart';
 
+class RegisterPageArguments {
+  final int stepNumber;
+
+  RegisterPageArguments([this.stepNumber]);
+}
+
 class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -77,13 +83,24 @@ class _RegisterPageState extends State<RegisterPage> {
             inputType: TextInputType.numberWithOptions(decimal: true),
             suffixText: "CM",
             autofocus: true,
+            combine: true,
           ),
           InputField(
             validator: InputValidationTechnique.number(context).build(),
             placeholderText: AppLocalizations.of(context).weight,
             inputType: TextInputType.numberWithOptions(decimal: true),
             suffixText: "KG",
-            textInputAction: TextInputAction.go,
+            combine: true,
+          ),
+          InputField(
+            validator: InputValidationTechnique.integer(context).build(),
+            placeholderText: AppLocalizations.of(context).age,
+            inputType: TextInputType.number,
+          ),
+          InputField(
+            validator: InputValidationTechnique.text(context).build(),
+            placeholderText: AppLocalizations.of(context).gender,
+            genderPicker: true,
           ),
         ],
       ),
@@ -136,7 +153,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    int _stepNumber = ModalRoute.of(context).settings.arguments ?? 0;
+    RegisterPageArguments _args = ModalRoute.of(context).settings.arguments;
+    int stepNumber = _args.stepNumber ?? 0;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -163,7 +181,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             style: Theme.of(context).textTheme.headline3,
                           ),
                           Text(
-                            _steps[_stepNumber].titleText,
+                            _steps[stepNumber].titleText,
                             style: Theme.of(context).textTheme.bodyText2,
                             textAlign: TextAlign.center,
                           ),
@@ -184,14 +202,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Form(
                         key: _formKey,
                         child: AuthForm(
-                          step: _steps[_stepNumber],
-                          stepNumber: _stepNumber,
+                          step: _steps[stepNumber],
+                          stepNumber: stepNumber,
                           stepsLength: _steps.length,
-                          onTextChanged: (val, fieldNumber) {
+                          onInputChanged: (val, fieldNumber) {
                             setState(() {
-                              _steps[_stepNumber].fields[fieldNumber].value =
+                              _steps[stepNumber].fields[fieldNumber].value =
                                   val;
                             });
+                            debugPrint(
+                                _steps[stepNumber].fields[fieldNumber].value);
                           },
                           advanceStep: () async {
                             var step1 = _steps[0].fields;
@@ -203,14 +223,17 @@ class _RegisterPageState extends State<RegisterPage> {
                             var email = step2[0].value,
                                 password = step2[1].value;
                             var height = step3[0].value,
-                                weight = step3[0].value;
+                                weight = step3[1].value,
+                                age = step3[2].value,
+                                gender = step3[3].value;
+                            debugPrint("gender" + step2[0].value.toString());
 
                             final devMode =
                                 Provider.of<Config>(context, listen: false)
                                     .devMode;
 
                             if (devMode || _formKey.currentState.validate()) {
-                              if (_stepNumber == _steps.length - 1) {
+                              if (stepNumber == _steps.length - 1) {
                                 if (!devMode) {
                                   final firebaseAuth =
                                       Provider.of<FirebaseAuth>(context,
@@ -235,6 +258,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                       "email": email,
                                       "height": height,
                                       "weight": weight,
+                                      "age": age,
+                                      "gender": gender,
                                     });
                                     Navigator.of(context)
                                         .pushNamedAndRemoveUntil(
@@ -254,7 +279,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 }
                               } else {
                                 Navigator.of(context).pushNamed(Routes.register,
-                                    arguments: _stepNumber + 1);
+                                    arguments:
+                                        RegisterPageArguments(stepNumber + 1));
                               }
                             }
                           },

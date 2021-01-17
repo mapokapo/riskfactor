@@ -116,49 +116,52 @@ class _HomePageState extends State<HomePage> {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32.0),
                           child: snapshot.data.data()['infection_risk'] != null
-                              ? Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 64.0,
-                                      height: 64.0,
-                                      child: CircularProgressIndicator(
-                                        value: double.tryParse(snapshot.data
-                                            .data()['infection_risk']),
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          Colors.green,
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 32.0),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 64.0,
+                                        height: 64.0,
+                                        child: CircularProgressIndicator(
+                                          value: double.tryParse(snapshot.data
+                                              .data()['infection_risk']),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Colors.green,
+                                          ),
+                                          strokeWidth: 8.0,
                                         ),
-                                        strokeWidth: 8.0,
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4.0),
-                                      child: Text(
-                                        "${snapshot.data.data()['infection_risk']}%",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2
-                                            .copyWith(
-                                                fontWeight: FontWeight.w600),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 4.0),
+                                        child: Text(
+                                          "${snapshot.data.data()['infection_risk']}%",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w600),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 )
-                              : Text(
-                                  AppLocalizations.of(context).unavailable,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      .copyWith(
-                                        color: Colors.orange,
-                                      ),
-                                ),
-                        ),
-                      ),
+                              : Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    AppLocalizations.of(context).unavailable,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(
+                                          color: Colors.orange,
+                                        ),
+                                  ),
+                                )),
                     ],
                   ),
                   checkmarkIcon: snapshot.data.data()['infection_risk'] != null,
@@ -334,12 +337,15 @@ class _HomePageState extends State<HomePage> {
                                   .bodyText2
                                   .copyWith(
                                     color: Colors.grey.shade200,
+                                    fontWeight: FontWeight.bold,
                                   ),
                             ),
                           ],
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.covid19test);
+                      },
                     ),
                   ),
                 ],

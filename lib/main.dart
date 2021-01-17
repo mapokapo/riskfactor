@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:riskfactor/constants/language.dart';
 import 'package:riskfactor/constants/routes.dart';
 import 'package:riskfactor/constants/theme_data.dart';
 import 'package:riskfactor/state/LanguageNotifier.dart';

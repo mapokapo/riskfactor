@@ -84,6 +84,30 @@
     "description": "Weight",
     "placeholders": {}
   },
+  "age": "Age",
+  "@age": {
+    "type": "text",
+    "description": "Age",
+    "placeholders": {}
+  },
+  "gender": "Gender",
+  "@gender": {
+    "type": "text",
+    "description": "Gender",
+    "placeholders": {}
+  },
+  "male": "Male",
+  "@male": {
+    "type": "text",
+    "description": "Male",
+    "placeholders": {}
+  },
+  "female": "Female",
+  "@female": {
+    "type": "text",
+    "description": "Female",
+    "placeholders": {}
+  },
   "registerFormStep4Title": "Finished!\nYou can now proceed to Riskfactor",
   "@registerFormStep4Title": {
     "type": "text",
@@ -154,6 +178,12 @@
   "@validationNotANumber": {
     "type": "text",
     "description": "You must input a number",
+    "placeholders": {}
+  },
+  "validationNotAnInteger": "You must input an integer",
+  "@validationNotAnInteger": {
+    "type": "text",
+    "description": "You must input an integer",
     "placeholders": {}
   },
   "next": "Next",

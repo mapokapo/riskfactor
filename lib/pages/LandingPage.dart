@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:riskfactor/constants/routes.dart';
 import 'package:riskfactor/constants/language.dart';
+import 'package:riskfactor/pages/auth/RegisterPage.dart';
 import 'package:riskfactor/state/LanguageNotifier.dart';
 import 'package:riskfactor/widgets/AuthButton.dart';
 import 'package:http/http.dart' as http;
@@ -147,8 +148,8 @@ class _LandingPageState extends State<LandingPage> {
                             child: AuthButton(
                               title: AppLocalizations.of(context).register,
                               onClick: () {
-                                Navigator.of(context)
-                                    .pushNamed(Routes.register);
+                                Navigator.of(context).pushNamed(Routes.register,
+                                    arguments: RegisterPageArguments());
                               },
                             ),
                           ),
