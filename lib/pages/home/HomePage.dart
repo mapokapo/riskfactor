@@ -121,10 +121,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 informationTile(
                   onClick: () {
-                    Navigator.of(context).pushNamed(Routes.covid19testResults,
-                        arguments: Covid19TestResultsPageArguments(
-                            previousCaseNumber:
-                                snapshot.data.data()['infection_status']));
+                    if (snapshot.data.data()['infection_status'] != null)
+                      Navigator.of(context).pushNamed(Routes.covid19testResults,
+                          arguments: Covid19TestResultsPageArguments(
+                              previousCaseNumber:
+                                  snapshot.data.data()['infection_status']));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

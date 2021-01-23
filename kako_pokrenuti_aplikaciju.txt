@@ -1,0 +1,6 @@
+Aplikacija je radjena u Flutter-u, sto znaci da pokretanje i instaliranje aplikacije na uredjaj je veoma jednostavno:
+
+Da biste pokrenuli aplikaciju na spojeni uredjaj, pokrenite komandu: "flutter run"
+Da biste instalirali aplikaciju na spojeni uredjaj, pokrenite komandu: "flutter build apk" te komandu "flutter install"
+
+app-release.apk fajl je vec generiran u glavnom folderu, te njega mozete koristiti za instalaciju na uredjaj.
