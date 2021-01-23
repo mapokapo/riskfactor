@@ -12,8 +12,9 @@ import 'package:riskfactor/widgets/AuthForm.dart';
 
 class RegisterPageArguments {
   final int stepNumber;
+  final List<AuthFormStep> steps;
 
-  RegisterPageArguments([this.stepNumber]);
+  RegisterPageArguments([this.stepNumber, this.steps]);
 }
 
 class RegisterPage extends StatefulWidget {
@@ -25,12 +26,9 @@ class _RegisterPageState extends State<RegisterPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _loading = false;
   String _error;
-  List<AuthFormStep> _steps;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _steps = [
+  List<AuthFormStep> _getSteps(BuildContext context) {
+    return [
       AuthFormStep(
         context,
         titleText: AppLocalizations.of(context).registerFormStep1Title,
@@ -155,6 +153,10 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     RegisterPageArguments _args = ModalRoute.of(context).settings.arguments;
     int stepNumber = _args.stepNumber ?? 0;
+    List<AuthFormStep> _steps = _args.steps ??
+        _getSteps(
+            context); // steps get gradually passed down as more RegisterPages get pushed onto the navigation stack
+    // Dont need to do this in SignInPage because it's only a single screen
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -205,13 +207,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           step: _steps[stepNumber],
                           stepNumber: stepNumber,
                           stepsLength: _steps.length,
-                          onInputChanged: (val, fieldNumber) {
+                          saveInput: (val, fieldNumber) {
                             setState(() {
                               _steps[stepNumber].fields[fieldNumber].value =
                                   val;
                             });
-                            debugPrint(
-                                _steps[stepNumber].fields[fieldNumber].value);
                           },
                           advanceStep: () async {
                             var step1 = _steps[0].fields;
@@ -226,7 +226,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 weight = step3[1].value,
                                 age = step3[2].value,
                                 gender = step3[3].value;
-                            debugPrint("gender" + step2[0].value.toString());
 
                             final devMode =
                                 Provider.of<Config>(context, listen: false)
@@ -279,8 +278,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 }
                               } else {
                                 Navigator.of(context).pushNamed(Routes.register,
-                                    arguments:
-                                        RegisterPageArguments(stepNumber + 1));
+                                    arguments: RegisterPageArguments(
+                                        stepNumber + 1, _steps));
                               }
                             }
                           },

@@ -1,0 +1,10 @@
+Have you had close contact to a confirmed patient of COVID-19? Yes/No
+Have you had any symptoms of COVID-19? Yes/No
+When were you in close contact to a confirmed patient of COVID-19? Date
+When did the symptoms start? Date
+Do you have any of the following symptoms? Checkbox
+
+Do you quickly become out of breath? Yes/No
+What is your current living situation? Radio
+What is your current work area? Radio
+Do you privately care for people? Yes/No

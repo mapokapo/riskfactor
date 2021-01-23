@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:riskfactor/state/ThemeNotifier.dart';
 
 class AuthButton extends StatelessWidget {
   final String title;
@@ -28,14 +30,23 @@ class AuthButton extends StatelessWidget {
         onPressed: () {
           if (onClick != null) onClick();
         },
-        style: OutlinedButton.styleFrom(
-          elevation: 4,
-          backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? Colors.grey.shade900
-              : Colors.white,
-          shape: RoundedRectangleBorder(
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all(4.0),
+          overlayColor: MaterialStateProperty.all(
+            Provider.of<ThemeNotifier>(context).darkTheme
+                ? Colors.grey.shade800
+                : Theme.of(context).primaryColorLight,
+          ),
+          backgroundColor: MaterialStateProperty.all(
+              Provider.of<ThemeNotifier>(context).darkTheme
+                  ? Colors.grey.shade900
+                  : Colors.white),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.all(Radius.circular(this.rounded ? 25.0 : 5.0))),
+                  BorderRadius.all(Radius.circular(this.rounded ? 25.0 : 5.0)),
+            ),
+          ),
         ),
       ),
     );

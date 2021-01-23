@@ -251,5 +251,215 @@
     "type": "text",
     "description": "Click here to start",
     "placeholders": {}
+  },
+  "covid19Test": "COVID-19 Test",
+  "@covid19Test": {
+    "type": "text",
+    "description": "COVID-19 Test",
+    "placeholders": {}
+  },
+  "allFieldsRequired": "You must answer every question to get your results",
+  "@allFieldsRequired": {
+    "type": "text",
+    "description": "You must answer every question to get your results",
+    "placeholders": {}
+  },
+  "covid19TestQuestion1Title": "Have you had close contact to a confirmed patient of COVID-19?",
+  "@covid19TestQuestion1Title": {
+    "type": "text",
+    "description": "Have you had close contact to a confirmed patient of COVID-19?",
+    "placeholders": {}
+  },
+  "covid19TestQuestion2Title": "If you were, when?",
+  "@covid19TestQuestion2Title": {
+    "type": "text",
+    "description": "If you were, when?",
+    "placeholders": {}
+  },
+  "covid19TestQuestion3Title": "Have you had any symptoms of COVID-19?",
+  "@covid19TestQuestion3Title": {
+    "type": "text",
+    "description": "Have you had any symptoms of COVID-19?",
+    "placeholders": {}
+  },
+  "covid19TestQuestion4Title": "If so, when did the symptoms start?",
+  "@covid19TestQuestion4Title": {
+    "type": "text",
+    "description": "If so, when did the symptoms start?",
+    "placeholders": {}
+  },
+  "covid19TestQuestion5Title": "Do you have any of the following symptoms?",
+  "@covid19TestQuestion5Title": {
+    "type": "text",
+    "description": "Do you have any of the following symptoms:",
+    "placeholders": {}
+  },
+  "chooseDate": "Choose a date",
+  "@chooseDate": {
+    "type": "text",
+    "description": "Choose a date",
+    "placeholders": {}
+  },
+  "had_fever_in_past_24h": "Had fever in the last 24 hours",
+  "@had_fever_in_past_24h": {
+    "type": "text",
+    "description": "Had fever in the last 24 hours",
+    "placeholders": {}
+  },
+  "had_fever_in_past_4d": "Had fever in the last 4 days",
+  "@had_fever_in_past_4d": {
+    "type": "text",
+    "description": "Had fever in the last 4 days",
+    "placeholders": {}
+  },
+  "chills": "Had chills",
+  "@chills": {
+    "type": "text",
+    "description": "Had chills",
+    "placeholders": {}
+  },
+  "lost_taste": "Lost the sensation of taste",
+  "@lost_taste": {
+    "type": "text",
+    "description": "Lost the sensation of taste",
+    "placeholders": {}
+  },
+  "body_aches": "Had body aches",
+  "@body_aches": {
+    "type": "text",
+    "description": "Had body aches",
+    "placeholders": {}
+  },
+  "retakeOrView": "Do you want to retake the test or view your previous results?",
+  "@retakeOrView": {
+    "type": "text",
+    "description": "Do you want to retake the test or view your previous results?",
+    "placeholders": {}
+  },
+  "retake": "Retake test",
+  "@retake": {
+    "type": "text",
+    "description": "Retake test",
+    "placeholders": {}
+  },
+  "view": "View previous results",
+  "@view": {
+    "type": "text",
+    "description": "View previous results",
+    "placeholders": {}
+  },
+  "ourRecommendations": "Our recommendations on what to do next:",
+  "@ourRecommendations": {
+    "type": "text",
+    "description": "Our recommendations on what to do next:",
+    "placeholders": {}
+  },
+  "shouldGetTested": "You should get tested.",
+  "@shouldGetTested": {
+    "type": "text",
+    "description": "You should get tested.",
+    "placeholders": {}
+  },
+  "shouldTakePrecautions": "You should take precautions.",
+  "@shouldTakePrecautions": {
+    "type": "text",
+    "description": "You should take precautions.",
+    "placeholders": {}
+  },
+  "notAtRisk": "You are not at risk.",
+  "@notAtRisk": {
+    "type": "text",
+    "description": "You are not at risk.",
+    "placeholders": {}
+  },
+  "case1RecommendationText": "Please call your general practitioner or the medical on-call service. If you have a shortness of breath that becomes severe, please seek medical help.\n\nPlease check in daily with a trusted person about your current condition and any potential worsening of symptoms.",
+  "@case1RecommendationText": {
+    "type": "text",
+    "description": "Recommendation info for Case 1",
+    "placeholders": {}
+  },
+  "case2RecommendationText": "When you leave the house, keep enough distance (at least 1.5 meters) from other people and follow the rules of conduct for protection against infection.\n\nPlease avoid unnecessary contact with other people and stay at home if possible.",
+  "@case2RecommendationText": {
+    "type": "text",
+    "description": "Recommendation info for Case 2",
+    "placeholders": {}
+  },
+  "case3RecommendationText": "Stay healthy and help stop the spread of COVID-19.\n\nWhen possible, please stay in your own room as the virus is easily transmitted.\nIn the event of contact you and your relatives should keep a distance of at least 1.5 meters and wear mouth and nose protection. Do not use the kitchen, hallway, bathroom and other common areas more often than absolutely necessary and take your meals separate from one another in terms of time and space.\n\nIf possible, people with risk factors should not be in the same household with you. These are: People with suppressed immune systems, people with chronic basic diseases, the elderly",
+  "@case3RecommendationText": {
+    "type": "text",
+    "description": "Recommendation info for Case 3",
+    "placeholders": {}
+  },
+  "generalRecommendationText1": "Please discuss how to proceed with your general practitioner and try to maintain a safe physical distance from your relative(s) in care.",
+  "@generalRecommendationText1": {
+    "type": "text",
+    "description": "General recommendation text 1",
+    "placeholders": {}
+  },
+  "generalRecommendationText2": "If you work in a medical environment, please inform your employer of your contact or current symptoms and discuss further measures to protect the people around you and your colleagues.",
+  "@generalRecommendationText2": {
+    "type": "text",
+    "description": "General recommendation text 2",
+    "placeholders": {}
+  },
+  "callHospital": "Contact your hospital",
+  "@callHospital": {
+    "type": "text",
+    "description": "Contact your hospital",
+    "placeholders": {}
+  },
+  "viewMoreInfo": "More info",
+  "@viewMoreInfo": {
+    "type": "text",
+    "description": "More info",
+    "placeholders": {}
+  },
+  "darkMode": "Toggle dark mode",
+  "@darkMode": {
+    "type": "text",
+    "description": "Toggle dark mode",
+    "placeholders": {}
+  },
+  "settings": "Settings",
+  "@settings": {
+    "type": "text",
+    "description": "Settings",
+    "placeholders": {}
+  },
+  "signOut": "Sign Out",
+  "@signOut": {
+    "type": "text",
+    "description": "Sign Out",
+    "placeholders": {}
+  },
+  "about": "About the app",
+  "@about": {
+    "type": "text",
+    "description": "About the app",
+    "placeholders": {}
+  },
+  "appLegalese": "Here you can view the licenses of the libraries this app uses. You can read our privacy policy down below.",
+  "@appLegalese": {
+    "type": "text",
+    "description": "App Legalese",
+    "placeholders": {}
+  },
+  "viewPrivacyPolicy": "View our privacy policy",
+  "@viewPrivacyPolicy": {
+    "type": "text",
+    "description": "View our privacy policy",
+    "placeholders": {}
+  },
+  "homePageText": "When you finish the COVID-19 test below, you will get your results and recommended actions.",
+  "@homePageText": {
+    "type": "text",
+    "description": "When you finish the COVID-19 test below, you will get your results and recommended actions.",
+    "placeholders": {}
+  },
+  "chooseLanguage": "Choose language",
+  "@chooseLanguage": {
+    "type": "text",
+    "description": "Choose language",
+    "placeholders": {}
   }
 }

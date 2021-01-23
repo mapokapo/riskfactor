@@ -97,14 +97,14 @@ class AuthForm extends StatelessWidget {
   final int stepsLength;
   final Function advanceStep;
   final bool stepped;
-  final void Function(String, int) onInputChanged;
+  final void Function(String, int) saveInput;
   AuthForm({
     this.step,
     this.stepNumber,
     this.stepsLength,
     this.advanceStep,
     this.stepped = true,
-    this.onInputChanged,
+    this.saveInput,
   });
 
   Widget getFormField(BuildContext context, InputField field, int verticalIndex,
@@ -126,8 +126,15 @@ class AuthForm extends StatelessWidget {
         child: field.genderPicker
             ? GenderSelector(
                 onChanged: (gender) {
-                  onInputChanged(
-                      gender.codename, verticalIndex + horizontalIndex);
+                  final List<List<InputField>> combinedFields =
+                      getCombinedFields(step.fields);
+                  final List<InputField> flattenedFields =
+                      combinedFields.expand((i) => i).toList();
+
+                  final int wrappedIndex = flattenedFields
+                      .indexOf(combinedFields[verticalIndex][horizontalIndex]);
+
+                  saveInput(gender.codename, wrappedIndex);
                 },
               )
             : TextFormField(
@@ -137,9 +144,7 @@ class AuthForm extends StatelessWidget {
                   hintText: field.placeholderText,
                   suffixText: field.suffixText,
                   filled: true,
-                  fillColor: Provider.of<ThemeNotifier>(context).darkTheme
-                      ? Colors.black.withOpacity(0.9)
-                      : Colors.white.withOpacity(0.9),
+                  fillColor: Colors.white.withOpacity(0.9),
                   errorStyle: Theme.of(context).textTheme.subtitle1.copyWith(
                         color: Provider.of<ThemeNotifier>(context).darkTheme
                             ? Colors.red.shade100
@@ -155,12 +160,44 @@ class AuthForm extends StatelessWidget {
                 keyboardAppearance: Theme.of(context).brightness,
                 textInputAction: field.textInputAction,
                 textCapitalization: field.textCapitalization,
-                onChanged: (val) =>
-                    onInputChanged(val, verticalIndex + horizontalIndex),
+                onSaved: (val) {
+                  final List<List<InputField>> combinedFields =
+                      getCombinedFields(step.fields);
+
+                  final List<List<InputField>> combinedTextFields =
+                      combinedFields
+                          .where((fields) =>
+                              fields.every((field) => !field.genderPicker))
+                          .toList();
+
+                  final List<InputField> flattenedTextFields =
+                      combinedTextFields.expand((i) => i).toList();
+
+                  final int wrappedIndex = flattenedTextFields.indexOf(
+                      combinedTextFields[verticalIndex][horizontalIndex]);
+                  saveInput(val, wrappedIndex);
+                },
                 onEditingComplete: () {
-                  if (verticalIndex + horizontalIndex ==
-                      step.fields.length - 1) {
+                  final List<List<InputField>> combinedFields =
+                      getCombinedFields(step.fields);
+
+                  final List<List<InputField>> combinedTextFields =
+                      combinedFields
+                          .where((fields) =>
+                              fields.every((field) => !field.genderPicker))
+                          .toList();
+
+                  final List<InputField> flattenedTextFields =
+                      combinedTextFields.expand((i) => i).toList();
+
+                  final int textFieldsAmount = flattenedTextFields.length - 1;
+
+                  final int wrappedIndex = flattenedTextFields.indexOf(
+                      combinedTextFields[verticalIndex][horizontalIndex]);
+
+                  if (wrappedIndex == textFieldsAmount) {
                     FocusScope.of(context).unfocus();
+                    Form.of(context).save();
                     advanceStep();
                   } else {
                     FocusScope.of(context).nextFocus();

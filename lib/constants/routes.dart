@@ -6,8 +6,10 @@ import 'package:riskfactor/pages/auth/SignInPage.dart';
 import 'package:riskfactor/pages/auth/RegisterPage.dart';
 import 'package:riskfactor/pages/auth/ForgotPassPage.dart';
 import 'package:riskfactor/pages/home/Covid19TestPage.dart';
+import 'package:riskfactor/pages/home/Covid19TestResultsPage.dart';
 
 import 'package:riskfactor/pages/home/HomePage.dart';
+import 'package:riskfactor/pages/home/SettingsPage.dart';
 
 class Routes {
   static const String landing = '/landing';
@@ -16,6 +18,8 @@ class Routes {
   static const String forgotPass = '/forgotpass';
   static const String home = '/home';
   static const String covid19test = '/covid19test';
+  static const String covid19testResults = '/covid19testresults';
+  static const String settings = '/settings';
 
   static Map<String, Widget Function(BuildContext context)> routes() {
     return {
@@ -25,6 +29,8 @@ class Routes {
       '/forgotposs': (_) => ForgotPassPage(),
       '/home': (_) => HomePage(),
       '/covid19test': (_) => Covid19TestPage(),
+      '/covid19testresults': (_) => Covid19TestResultsPage(),
+      '/settings': (_) => SettingsPage(),
     };
   }
 }

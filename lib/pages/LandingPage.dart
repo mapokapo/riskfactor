@@ -55,6 +55,7 @@ class _LandingPageState extends State<LandingPage> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
+            alignment: Alignment.center,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -80,6 +81,42 @@ class _LandingPageState extends State<LandingPage> {
                 padding: const EdgeInsets.all(32.0),
                 child: Stack(
                   children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: DropdownButton(
+                        hint: Text(
+                          Language.languageList()
+                              .where((element) =>
+                                  element.languageCode ==
+                                  Provider.of<LanguageNotifier>(context)
+                                      .currentLocale
+                                      .languageCode)
+                              .first
+                              .name,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        icon: Icon(
+                          Icons.language,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        onChanged: (Language lang) {
+                          context
+                              .read<LanguageNotifier>()
+                              .changeLanguage(Locale(lang.languageCode));
+                        },
+                        items: Language.languageList()
+                            .map((lang) => DropdownMenuItem(
+                                  value: lang,
+                                  child: Row(
+                                    children: [
+                                      Text(lang.name),
+                                      Text(lang.flag),
+                                    ],
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ),
                     Align(
                       alignment: Alignment(0, -0.3),
                       child: Padding(
@@ -158,29 +195,6 @@ class _LandingPageState extends State<LandingPage> {
                     )
                   ],
                 ),
-              ),
-              DropdownButton(
-                underline: SizedBox(),
-                icon: Icon(
-                  Icons.language,
-                  color: Theme.of(context).primaryColor,
-                ),
-                onChanged: (Language lang) {
-                  context
-                      .read<LanguageNotifier>()
-                      .changeLanguage(Locale(lang.languageCode));
-                },
-                items: Language.languageList()
-                    .map((lang) => DropdownMenuItem(
-                          value: lang,
-                          child: Row(
-                            children: [
-                              Text(lang.name),
-                              Text(lang.flag),
-                            ],
-                          ),
-                        ))
-                    .toList(),
               ),
             ],
           ),
