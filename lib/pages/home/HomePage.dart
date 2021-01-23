@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
   Widget welcomeWidget(
       {FirebaseAuth firebaseAuth,
       FirebaseFirestore firebaseFirestore,
-      Future<DocumentSnapshot> firebaseFirestoreFutureDoc}) {
+      Stream<DocumentSnapshot> firebaseFirestoreDocStream}) {
     List<List<Color>> colorPairs = [
       [
         Theme.of(context).primaryColor,
@@ -91,10 +91,10 @@ class _HomePageState extends State<HomePage> {
         Colors.green.shade100,
       ]
     ];
-    return FutureBuilder(
-      future: firebaseFirestoreFutureDoc,
+    return StreamBuilder(
+      stream: firebaseFirestoreDocStream,
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.active) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Column(
@@ -275,17 +275,17 @@ class _HomePageState extends State<HomePage> {
 
   FirebaseAuth firebaseAuth;
   FirebaseFirestore firebaseFirestore;
-  Future<DocumentSnapshot> firebaseFirestoreFutureDoc;
+  Stream<DocumentSnapshot> firebaseFirestoreDocStream;
 
   @override
   void initState() {
     super.initState();
     firebaseAuth = Provider.of<FirebaseAuth>(context, listen: false);
     firebaseFirestore = Provider.of<FirebaseFirestore>(context, listen: false);
-    firebaseFirestoreFutureDoc = firebaseFirestore
+    firebaseFirestoreDocStream = firebaseFirestore
         .collection('users')
         .doc(firebaseAuth.currentUser.uid)
-        .get();
+        .snapshots();
   }
 
   @override
@@ -364,7 +364,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           "Riskfactor",
-          style: Theme.of(context).textTheme.bodyText2.copyWith(
+          style: Theme.of(context).textTheme.headline6.copyWith(
                 color: Colors.white,
               ),
         ),
@@ -392,11 +392,11 @@ class _HomePageState extends State<HomePage> {
                   welcomeWidget(
                     firebaseAuth: firebaseAuth,
                     firebaseFirestore: firebaseFirestore,
-                    firebaseFirestoreFutureDoc: firebaseFirestoreFutureDoc,
+                    firebaseFirestoreDocStream: firebaseFirestoreDocStream,
                   ),
                   Spacer(),
-                  FutureBuilder<DocumentSnapshot>(
-                      future: firebaseFirestoreFutureDoc,
+                  StreamBuilder<DocumentSnapshot>(
+                      stream: firebaseFirestoreDocStream,
                       builder: (context, snapshot) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(
@@ -421,7 +421,7 @@ class _HomePageState extends State<HomePage> {
                                       textAlign: TextAlign.center,
                                     ),
                                   if (snapshot.connectionState ==
-                                          ConnectionState.done &&
+                                          ConnectionState.active &&
                                       snapshot.data
                                               .data()['infection_status'] ==
                                           null)
@@ -437,7 +437,7 @@ class _HomePageState extends State<HomePage> {
                                       textAlign: TextAlign.center,
                                     ),
                                   if (snapshot.connectionState ==
-                                          ConnectionState.done &&
+                                          ConnectionState.active &&
                                       snapshot.data
                                               .data()['infection_status'] ==
                                           null)
@@ -453,7 +453,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                     ),
                                   if (snapshot.connectionState ==
-                                          ConnectionState.done &&
+                                          ConnectionState.active &&
                                       snapshot.data
                                               .data()['infection_status'] !=
                                           null)
@@ -525,13 +525,14 @@ class _HomePageState extends State<HomePage> {
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                               Navigator.of(context).pushNamed(
-                                                  Routes.covid19testResults,
-                                                  arguments:
-                                                      Covid19TestResultsPageArguments(
-                                                          previousCaseNumber:
-                                                              snapshot.data
-                                                                      .data()[
-                                                                  'infection_status']));
+                                                Routes.covid19testResults,
+                                                arguments:
+                                                    Covid19TestResultsPageArguments(
+                                                        previousCaseNumber: snapshot
+                                                                .data
+                                                                .data()[
+                                                            'infection_status']),
+                                              );
                                             },
                                           ),
                                         ],

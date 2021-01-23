@@ -26,7 +26,7 @@ class Covid19ResultsInfo extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 24.0),
           child: Text(
             chosenCase,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ),
         Padding(

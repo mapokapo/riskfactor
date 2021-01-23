@@ -43,7 +43,8 @@ class Covid19TestResultsPage extends StatelessWidget {
             color: Colors.black,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Text(
               AppLocalizations.of(context).ourRecommendations,
               style: Theme.of(context).textTheme.bodyText1,
@@ -194,6 +195,9 @@ class Covid19TestResultsPage extends StatelessWidget {
     List<TestQuestion> questions = _args.questions ?? [];
     int previousCaseNumber = _args.previousCaseNumber ?? 0;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).covid19Test),
+      ),
       body: SafeArea(
         child: ListView(
           children: [

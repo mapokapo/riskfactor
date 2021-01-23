@@ -89,7 +89,7 @@ class SettingsPage extends StatelessWidget {
                     showAboutDialog(
                       context: context,
                       applicationIcon: Image.asset(
-                        'assets/images/app_icon.png',
+                        'assets/images/app_icon_512.png',
                         scale: 2.5,
                       ),
                       applicationName: "RiskFactor",
