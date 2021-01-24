@@ -67,10 +67,10 @@ class _LandingPageState extends State<LandingPage> {
                     colors: [
                       Theme.of(context).primaryColor,
                       Theme.of(context).brightness == Brightness.dark
-                          ? Colors.blueGrey.shade800
+                          ? Colors.blueGrey.shade600
                           : Colors.white,
                       Theme.of(context).brightness == Brightness.dark
-                          ? Colors.blueGrey.shade800
+                          ? Colors.blueGrey.shade600
                           : Colors.white,
                       Theme.of(context).primaryColor,
                     ],
@@ -108,6 +108,8 @@ class _LandingPageState extends State<LandingPage> {
                             .map((lang) => DropdownMenuItem(
                                   value: lang,
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(lang.name),
                                       Text(lang.flag),

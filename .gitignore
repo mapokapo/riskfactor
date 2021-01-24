@@ -42,3 +42,4 @@ app.*.map.json
 
 key.jks
 android/key.properties
+*.apk

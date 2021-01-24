@@ -15,5 +15,5 @@ class Languages {
   static Language english =
       Language(id: 1, flag: '🇬🇧', languageCode: 'en', name: 'English');
   static Language bosnian =
-      Language(id: 2, flag: '🇧🇦', languageCode: 'bs', name: 'Bosanski');
+      Language(id: 2, flag: '🇧🇦', languageCode: 'bs', name: 'Lokalni');
 }

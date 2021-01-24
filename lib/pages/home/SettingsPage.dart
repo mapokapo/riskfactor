@@ -88,9 +88,9 @@ class SettingsPage extends StatelessWidget {
                     debugPrint("${Theme.of(context).accentColor}");
                     showAboutDialog(
                       context: context,
-                      applicationIcon: Image.asset(
-                        'assets/images/app_icon_512.png',
-                        scale: 2.5,
+                      applicationIcon: ImageIcon(
+                        AssetImage('assets/images/app_icon_512.png'),
+                        color: Colors.red,
                       ),
                       applicationName: "RiskFactor",
                       applicationVersion: "1.0.6",

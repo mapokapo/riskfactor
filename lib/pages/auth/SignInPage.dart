@@ -6,8 +6,10 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'package:riskfactor/constants/config.dart';
 import 'package:riskfactor/constants/routes.dart';
+import 'package:riskfactor/state/LanguageNotifier.dart';
 import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:riskfactor/widgets/AuthForm.dart';
+import 'package:translator/translator.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -92,109 +94,141 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translator = GoogleTranslator();
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              polygonBackgroundWidget(),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: 32.0,
-                    bottom:
-                        KeyboardVisibilityController().isVisible ? 8.0 : 32.0,
-                    left: 16.0,
-                    right: 16.0),
-                child: Column(
-                  children: [
-                    if (_loading) CircularProgressIndicator(),
-                    if (!_loading)
-                      Column(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).signIn,
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                          Text(
-                            _steps[_stepNumber].titleText,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                        ],
-                      ),
-                    if (_error != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(
-                          _error,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1
-                              .copyWith(color: Colors.red),
-                          textAlign: TextAlign.center,
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: KeyboardVisibilityController().isVisible
+                ? MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).viewInsets.bottom
+                : MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                polygonBackgroundWidget(),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top:
+                          KeyboardVisibilityController().isVisible ? 8.0 : 32.0,
+                      bottom:
+                          KeyboardVisibilityController().isVisible ? 8.0 : 32.0,
+                      left: 16.0,
+                      right: 16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (_loading) CircularProgressIndicator(),
+                      if (!_loading)
+                        Column(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context).signIn,
+                              style: Theme.of(context).textTheme.headline3,
+                            ),
+                            Text(
+                              _steps[_stepNumber].titleText,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                          ],
                         ),
-                      ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Form(
-                        key: _formKey,
-                        child: AuthForm(
-                          step: _steps[_stepNumber],
-                          stepNumber: _stepNumber,
-                          stepsLength: _steps.length,
-                          saveInput: (val, fieldNumber) {
-                            setState(() {
-                              _steps[_stepNumber].fields[fieldNumber].value =
-                                  val;
-                            });
-                          },
-                          advanceStep: () async {
-                            var values = _steps[0].fields;
-                            var email = values[0].value,
-                                password = values[1].value;
+                      if (_error != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: FutureBuilder<Translation>(
+                              future: translator.translate(_error,
+                                  from: "en",
+                                  to: Provider.of<LanguageNotifier>(context,
+                                          listen: false)
+                                      .currentLocale
+                                      .languageCode),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError)
+                                  return Text(
+                                    AppLocalizations.of(context)
+                                        .fetchErrorReopenApp,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(color: Colors.red.shade900),
+                                    textAlign: TextAlign.center,
+                                  );
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done)
+                                  return Text(
+                                    snapshot.data.text,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(color: Colors.red.shade900),
+                                    textAlign: TextAlign.center,
+                                  );
+                                return CircularProgressIndicator();
+                              }),
+                        ),
+                      if (!KeyboardVisibilityController().isVisible) Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Form(
+                          key: _formKey,
+                          child: AuthForm(
+                            step: _steps[_stepNumber],
+                            stepNumber: _stepNumber,
+                            stepsLength: _steps.length,
+                            saveInput: (val, fieldNumber) {
+                              setState(() {
+                                _steps[_stepNumber].fields[fieldNumber].value =
+                                    val;
+                              });
+                            },
+                            advanceStep: () async {
+                              var values = _steps[0].fields;
+                              var email = values[0].value,
+                                  password = values[1].value;
 
-                            final devMode =
-                                Provider.of<Config>(context, listen: false)
-                                    .devMode;
+                              final devMode =
+                                  Provider.of<Config>(context, listen: false)
+                                      .devMode;
 
-                            if (devMode || _formKey.currentState.validate()) {
-                              if (!devMode) {
-                                final firebaseAuth = Provider.of<FirebaseAuth>(
-                                    context,
-                                    listen: false);
-                                setState(() {
-                                  _loading = true;
-                                });
-                                try {
-                                  await firebaseAuth.signInWithEmailAndPassword(
-                                      email: email, password: password);
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      Routes.home, (_) => false);
-                                } on FirebaseAuthException catch (e) {
+                              if (devMode || _formKey.currentState.validate()) {
+                                if (!devMode) {
+                                  final firebaseAuth =
+                                      Provider.of<FirebaseAuth>(context,
+                                          listen: false);
                                   setState(() {
-                                    _error = e.message;
+                                    _loading = true;
                                   });
-                                } catch (e) {
+                                  try {
+                                    await firebaseAuth
+                                        .signInWithEmailAndPassword(
+                                            email: email, password: password);
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            Routes.home, (_) => false);
+                                  } on FirebaseAuthException catch (e) {
+                                    setState(() {
+                                      _error = e.message;
+                                    });
+                                  } catch (e) {
+                                    setState(() {
+                                      _error = e.toString();
+                                    });
+                                  }
                                   setState(() {
-                                    _error = e.toString();
+                                    _loading = false;
                                   });
                                 }
-                                setState(() {
-                                  _loading = false;
-                                });
                               }
-                            }
-                          },
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

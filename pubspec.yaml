@@ -38,6 +38,7 @@ dependencies:
   form_validator: ^0.1.7
   material_design_icons_flutter: ^4.0.5755
   url_launcher: ^5.7.10
+  translator: ^0.1.5
 
 dev_dependencies:
   flutter_test:

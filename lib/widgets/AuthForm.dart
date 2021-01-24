@@ -125,7 +125,8 @@ class AuthForm extends StatelessWidget {
         ),
         child: field.genderPicker
             ? GenderSelector(
-                onChanged: (gender) {
+                initialValue: null,
+                onSaved: (int index) {
                   final List<List<InputField>> combinedFields =
                       getCombinedFields(step.fields);
                   final List<InputField> flattenedFields =
@@ -134,7 +135,12 @@ class AuthForm extends StatelessWidget {
                   final int wrappedIndex = flattenedFields
                       .indexOf(combinedFields[verticalIndex][horizontalIndex]);
 
-                  saveInput(gender.codename, wrappedIndex);
+                  saveInput(index == 0 ? "male" : "female", wrappedIndex);
+                },
+                validator: (int index) {
+                  if (index == null)
+                    return AppLocalizations.of(context).validationRequiredField;
+                  return null;
                 },
               )
             : TextFormField(
@@ -144,7 +150,9 @@ class AuthForm extends StatelessWidget {
                   hintText: field.placeholderText,
                   suffixText: field.suffixText,
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.9),
+                  fillColor: Provider.of<ThemeNotifier>(context).darkTheme
+                      ? Colors.black.withOpacity(0.9)
+                      : Colors.white.withOpacity(0.9),
                   errorStyle: Theme.of(context).textTheme.subtitle1.copyWith(
                         color: Provider.of<ThemeNotifier>(context).darkTheme
                             ? Colors.red.shade100
@@ -196,9 +204,11 @@ class AuthForm extends StatelessWidget {
                       combinedTextFields[verticalIndex][horizontalIndex]);
 
                   if (wrappedIndex == textFieldsAmount) {
-                    FocusScope.of(context).unfocus();
                     Form.of(context).save();
-                    advanceStep();
+                    if (step.fields.every((f) => f.value != null)) {
+                      FocusScope.of(context).unfocus();
+                      advanceStep();
+                    }
                   } else {
                     FocusScope.of(context).nextFocus();
                   }
@@ -280,7 +290,11 @@ class AuthForm extends StatelessWidget {
                 rounded: false,
                 title: step.submitButtonText,
                 onClick: () {
-                  advanceStep();
+                  Form.of(context).save();
+                  if (step.fields.every((f) => f.value != null)) {
+                    FocusScope.of(context).unfocus();
+                    advanceStep();
+                  }
                 },
               ),
             );
