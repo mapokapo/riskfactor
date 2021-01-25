@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   AppLocalizations.of(context).welcome,
                   style: Theme.of(context).textTheme.headline5,
+                  textAlign: TextAlign.center,
                 ),
                 Text(
                   snapshot.data.data()['name'],
@@ -109,6 +110,7 @@ class _HomePageState extends State<HomePage> {
                       .textTheme
                       .headline3
                       .copyWith(fontWeight: FontWeight.w600),
+                  textAlign: TextAlign.center,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -201,12 +203,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onPressed: () {
-                    launch(Provider.of<LanguageNotifier>(context, listen: false)
-                                .currentLocale
-                                .languageCode ==
-                            "bs"
-                        ? "https://www.hzjz.hr/priopcenja-mediji/koronavirus-najnoviji-podatci/"
-                        : "https://www.cdc.gov/coronavirus/2019-ncov/downloads/2019-ncov-factsheet.pdf");
+                    Navigator.of(context)
+                        .pushNamed(Routes.covid19testResultsInfo);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -226,10 +224,8 @@ class _HomePageState extends State<HomePage> {
             AppLocalizations.of(context).fetchErrorReopenApp,
             style: Theme.of(context).textTheme.bodyText2,
           );
-        return Expanded(
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+        return Center(
+          child: CircularProgressIndicator(),
         );
       },
     );
@@ -303,6 +299,13 @@ class _HomePageState extends State<HomePage> {
                 onChanged: (_) {
                   Provider.of<ThemeNotifier>(context, listen: false)
                       .toggleTheme();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.set_meal),
+                title: Text(AppLocalizations.of(context).nutrition),
+                onTap: () {
+                  Navigator.of(context).pushNamed(Routes.nutrition);
                 },
               ),
               ListTile(
@@ -384,18 +387,17 @@ class _HomePageState extends State<HomePage> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
-            alignment: Alignment.center,
             children: [
               polygonBackgroundWidget(),
-              Column(
-                children: [
-                  welcomeWidget(
-                    firebaseAuth: firebaseAuth,
-                    firebaseFirestore: firebaseFirestore,
-                    firebaseFirestoreDocStream: firebaseFirestoreDocStream,
-                  ),
-                  Spacer(),
-                  StreamBuilder<DocumentSnapshot>(
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    welcomeWidget(
+                      firebaseAuth: firebaseAuth,
+                      firebaseFirestore: firebaseFirestore,
+                      firebaseFirestoreDocStream: firebaseFirestoreDocStream,
+                    ),
+                    StreamBuilder<DocumentSnapshot>(
                       stream: firebaseFirestoreDocStream,
                       builder: (context, snapshot) {
                         return Padding(
@@ -477,72 +479,74 @@ class _HomePageState extends State<HomePage> {
                                     .pushNamed(Routes.covid19test);
                               else
                                 showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Column(
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)
-                                                  .covid19Test,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            ),
-                                            Text(
-                                              AppLocalizations.of(context)
-                                                  .retakeOrView,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                            ),
-                                          ],
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text(
-                                              AppLocalizations.of(context)
-                                                  .retake,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2
-                                                  .copyWith(color: Colors.red),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pushNamed(
-                                                  Routes.covid19test);
-                                            },
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Column(
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .covid19Test,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
                                           ),
-                                          TextButton(
-                                            child: Text(
-                                              AppLocalizations.of(context).view,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2
-                                                  .copyWith(color: Colors.blue),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pushNamed(
-                                                Routes.covid19testResults,
-                                                arguments:
-                                                    Covid19TestResultsPageArguments(
-                                                        previousCaseNumber: snapshot
-                                                                .data
-                                                                .data()[
-                                                            'infection_status']),
-                                              );
-                                            },
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .retakeOrView,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
                                           ),
                                         ],
-                                      );
-                                    });
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text(
+                                            AppLocalizations.of(context).retake,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2
+                                                .copyWith(color: Colors.red),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context)
+                                                .pushNamed(Routes.covid19test);
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text(
+                                            AppLocalizations.of(context).view,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2
+                                                .copyWith(color: Colors.blue),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pushNamed(
+                                              Routes.covid19testResults,
+                                              arguments:
+                                                  Covid19TestResultsPageArguments(
+                                                      previousCaseNumber: snapshot
+                                                              .data
+                                                              .data()[
+                                                          'infection_status']),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                             },
                           ),
                         );
-                      }),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

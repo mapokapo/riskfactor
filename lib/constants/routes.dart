@@ -6,10 +6,13 @@ import 'package:riskfactor/pages/auth/SignInPage.dart';
 import 'package:riskfactor/pages/auth/RegisterPage.dart';
 import 'package:riskfactor/pages/auth/ForgotPassPage.dart';
 import 'package:riskfactor/pages/home/Covid19TestPage.dart';
+import 'package:riskfactor/pages/home/Covid19TestResultsInfoPage.dart';
 import 'package:riskfactor/pages/home/Covid19TestResultsPage.dart';
 
 import 'package:riskfactor/pages/home/HomePage.dart';
+import 'package:riskfactor/pages/home/NutritionPage.dart';
 import 'package:riskfactor/pages/home/SettingsPage.dart';
+import 'package:riskfactor/pages/home/VitaminInfoPage.dart';
 
 class Routes {
   static const String landing = '/landing';
@@ -19,7 +22,10 @@ class Routes {
   static const String home = '/home';
   static const String covid19test = '/covid19test';
   static const String covid19testResults = '/covid19testresults';
+  static const String covid19testResultsInfo = '/covid19testResultsInfo';
   static const String settings = '/settings';
+  static const String nutrition = '/nutrition';
+  static const String vitaminInfo = '/vitaminInfo';
 
   static Map<String, Widget Function(BuildContext context)> routes() {
     return {
@@ -30,7 +36,10 @@ class Routes {
       '/home': (_) => HomePage(),
       '/covid19test': (_) => Covid19TestPage(),
       '/covid19testresults': (_) => Covid19TestResultsPage(),
+      '/covid19testResultsInfo': (_) => Covid19TestResultsInfoPage(),
       '/settings': (_) => SettingsPage(),
+      '/nutrition': (_) => NutritionPage(),
+      '/vitaminInfo': (_) => VitaminInfoPage(),
     };
   }
 }

@@ -461,5 +461,143 @@
     "type": "text",
     "description": "Choose language",
     "placeholders": {}
+  },
+  "case1Name": "High Risk",
+  "@case1Name": {
+    "type": "text",
+    "description": "High Risk",
+    "placeholders": {}
+  },
+  "case2Name": "Medium Risk A",
+  "@case2Name": {
+    "type": "text",
+    "description": "Medium Risk A",
+    "placeholders": {}
+  },
+  "case3Name": "Medium Risk B",
+  "@case3Name": {
+    "type": "text",
+    "description": "Medium Risk B",
+    "placeholders": {}
+  },
+  "case4Name": "Low Risk",
+  "@case4Name": {
+    "type": "text",
+    "description": "Low Risk",
+    "placeholders": {}
+  },
+  "case5Name": "No Risk",
+  "@case5Name": {
+    "type": "text",
+    "description": "No Risk",
+    "placeholders": {}
+  },
+  "case1Info": "Either had contact and within 14 days after contact at least one symptom occurred or symptoms started before contact",
+  "@case1Info": {
+    "type": "text",
+    "description": "Case 1 info text",
+    "placeholders": {}
+  },
+  "case2Info": "Combination of general and respiratory symptoms started either a) after 14 days after contact or b) there was no contact at all",
+  "@case2Info": {
+    "type": "text",
+    "description": "Case 2 info text",
+    "placeholders": {}
+  },
+  "case3Info": "Had contact during last 14 days but no symptoms",
+  "@case3Info": {
+    "type": "text",
+    "description": "Case 3 info text",
+    "placeholders": {}
+  },
+  "case4Info": "Either a) had symptoms that started 14 days after contact and which are not a combination of general and respiratory symptoms or b) didn't had contact but symptoms which are not a combination of general and respiratory symptoms",
+  "@case4Info": {
+    "type": "text",
+    "description": "Case 4 info text",
+    "placeholders": {}
+  },
+  "case5Info": "No contacts, no symptoms",
+  "@case5Info": {
+    "type": "text",
+    "description": "Case 5 info text",
+    "placeholders": {}
+  },
+  "covid19TestResults": "Test Results",
+  "@covid19TestResults": {
+    "type": "text",
+    "description": "Test Results",
+    "placeholders": {}
+  },
+  "caseMeanings": "Test result cases have the following meanings:",
+  "@caseMeanings": {
+    "type": "text",
+    "description": "Test result cases have the following meanings:",
+    "placeholders": {}
+  },
+  "nutrition": "Nutrition",
+  "@nutrition": {
+    "type": "text",
+    "description": "Nutrition",
+    "placeholders": {}
+  },
+  "vitaminAShortDesc": "Adequate intake of vitamin A through food will prevent hair loss, various skin diseases, dry eyes, poor nail growth, poor tooth enamel, impaired vision at night and increased susceptibility to infections.",
+  "@vitaminAShortDesc": {
+    "type": "text",
+    "description": "Vitamin A short description",
+    "placeholders": {}
+  },
+  "vitaminAContent": "Vitamin A has a number of important roles in the body:\n• Eye health - Vitamin A is involved in the synthesis of photopigment from the eye, which plays a key role in adapting the eye to light.\n• Immune function - vitamin A deficiency weakens the immune system, making us more susceptible to various infections.\n• Supports cell development - Vitamin A is necessary for the proper growth and development of all cells, so adequate intake is extremely important for children and adolescents.\n• Reproductive function - vitamin A is necessary for the proper development of the embryo in the uterus.\n\nAdequate intake of vitamin A through food will prevent symptoms of deficiency of this vitamin, such as hair loss, various skin diseases, dry eyes, poor nail growth, poor tooth enamel, impaired vision at night and increased susceptibility to infections.\n\nThe needs for vitamin A can be met by an appropriate diet, ie intake of foods rich in this vitamin, such as:\n• Liver (beef, lamb, goose)\n• Fatty fish (tuna, salmon, mackerel, trout) and fish oil\n• Milk and dairy products (primarily fatty cheeses and butter)\nEggs\n• Dark green leafy vegetables (spinach, chard, kale)\n• Yellow / orange fruits and vegetables (pumpkin, sweet potato, carrot, melon, apricot, peach)\n• Tomatoes\n• Enriched foods (dairy products, margarine spreads, cereals)",
+  "@vitaminAContent": {
+    "type": "text",
+    "description": "Vitamin A content",
+    "placeholders": {}
+  },
+  "vitaminB6ShortDesc": "Vitamin B6 plays a role in metabolism, the nervous system, and red blood cells. This vitamin is necessary for your body's cells and plays an important role in pregnancy and the proper function of the immune system.",
+  "@vitaminB6ShortDesc": {
+    "type": "text",
+    "description": "Vitamin B6 short description",
+    "placeholders": {}
+  },
+  "vitaminB6Content": "Role:\nVitamin B6 plays a role in amino acid metabolism, protein formation, chemical neurotransmitters of the nervous system, red blood cells and prostaglandins. This vitamin is necessary for cell proliferation and as such plays an important role in pregnancy and the proper function of the immune system, mucous membranes, skin, red blood cells and brain function.\n\nDeficit:\nSymptoms of vitamin B6 deficiency include anemia, arthritis, depression, learning disorders, muscle spasm, weakness, and acne.\nAlthough vitamin B6 deficiency is rare, it can occur in alcoholics, kidney patients, women taking birth control pills, and immune system disorders.\n\nSources of vitamin B6 in food:\nVitamin B6 is found in significant amounts in bananas, wheat yeast, eggs, beef, and green leafy vegetables.\n\n\nUsage:\nVitamin B6 supplements are used to treat several diseases and conditions. Autism is thought to be related to a decrease in the number of certain brain neurotransmitters that require vitamin B6 to function normally. Heart disease is associated with low doses of vitamin B6 in the body. Numerous studies have reported that people with low levels of pyridoxal-5-phosphate (a form of vitamin B6) show a much higher risk of heart attack than people with higher levels.",
+  "@vitaminB6Content": {
+    "type": "text",
+    "description": "Vitamin B6 content",
+    "placeholders": {}
+  },
+  "vitaminB12ShortDesc": "Vitamin B12 is naturally present in foods such as fish, meat, poultry, eggs, milk and dairy products. Its key roles are to protect us from anemia and promote healthy nerve function.",
+  "@vitaminB12ShortDesc": {
+    "type": "text",
+    "description": "Vitamin B12 short description",
+    "placeholders": {}
+  },
+  "vitaminB12Content": "Vitamin B12, also called cobalamin, is a water-soluble vitamin that is naturally present in foods such as fish, meat, poultry, eggs, milk and dairy products. Its key role is to protect us from anemia, the main culprit for the feeling of fatigue and exhaustion, ie to provide the body with enough red blood cells that will successfully carry oxygen throughout the body. Vitamin B12 also promotes healthy nerve function, and some research has linked this vitamin to a lower risk of breast cancer, heart disease and infertility (especially men because it increases sperm count and motility). According to the recommendations of the American National Institutes of Health, 2.4 milligrams of vitamin B2 should be taken daily through food or supplements.\n\nVegans are also at risk of vitamin B12 deficiency, as this vitamin is obtained exclusively from foods of animal origin. People with atrophic gastritis may also have a problem with the absorption of this vitamin. However, it should be emphasized that the human body has a large supply of this vitamin, so with insufficient intake through food, the deficit is felt only after a few years.\n\nOne of the typical symptoms of vitamin B12 deficiency is fatigue. When the supply of vitamin B12 is low, the body cannot produce the red blood cells needed to supply the body with oxygen. The result is anemia, so the person feels unusually weak and weak. The problem is that fatigue as such is a very vague symptom, as it can be attributed to a number of other situations such as stress or lack of sleep.\n\nHowever, if the fatigue is constantly getting worse and you cannot find the cause, be sure to contact your doctor and check your blood count. From your brain, across your spine to your arms and legs, there is a long nervous system called the back tract, which is lined with the fatty white substance myelin. Myelin not only protects and insulates the nerves but also speeds up nerve impulses, allowing the hands and feet to feel the touch. Vitamin B12 is needed to produce myelin. Thus, when the amounts of this essential vitamin are depleted, myelin breaks down and nerve impulses cannot “travel” so fast, resulting in tingling in the arms and legs.\n\nPeople who are at potential risk of deficiency of this vitamin are advised, in addition to consuming foods containing it and supplements, to avoid excessive intake of foods that block the absorption of vitamin B12, such as soy, then drugs that reduce stomach acid, vitamin C, and some data say how the absorption of B 12 is disturbed and diabetes medications. The supply of vitamin B 12 is also depleted by smoking, so smokers (but also everyone else) are recommended to increase the amount of calcium.",
+  "@vitaminB12Content": {
+    "type": "text",
+    "description": "Vitamin B12 content",
+    "placeholders": {}
+  },
+  "vitaminCShortDesc": "Vitamin C is needed to form collagen, plays an important role in wound healing and has an anti-allergic effect. This vitamin also helps defend against viruses and detoxifies the body.",
+  "@vitaminCShortDesc": {
+    "type": "text",
+    "description": "Vitamin C short description",
+    "placeholders": {}
+  },
+  "vitaminCContent": "Vitamin C is needed to form collagen, an 'adhesive' that strengthens many parts of the body such as muscles and blood vessels. Vitamin C plays an important role in wound healing and has an anti-allergic effect. This vitamin stimulates the formation of bile, helps defend against viruses and detoxifies the body. Although vitamin C has little effect in preventing the common cold, it shortens the duration and alleviates the symptoms of the common cold.\n\nFoods that are rich in vitamin C are:\n•broccoli\n•Red pepper\n• pomegranate\n• acerola\n• citrus\n•strawberries",
+  "@vitaminCContent": {
+    "type": "text",
+    "description": "Vitamin C content",
+    "placeholders": {}
+  },
+  "vitaminDShortDesc": "Vitamin D can be found in cod liver oil and other fatty fish. Furthermore, foods rich in vitamin D include some mushrooms, yeast, beef liver and egg yolk. Vitamin D helps regulate the amount of calcium and phosphate in the body.",
+  "@vitaminDShortDesc": {
+    "type": "text",
+    "description": "Vitamin D short description",
+    "placeholders": {}
+  },
+  "vitaminDContent": "Vitamin D is important for healthy bones, teeth and muscles. A lack of it can lead to a bone deformity illness called rickets in children, and a similar bone weakness condition called osteomalacia in adults.\n\nThere are also suggestions that vitamin D boosts the immune system and helps fight off infections.\n\nSome studies suggest adequate vitamin D levels help when we have common colds and flu, for example. But evidence from research is inconsistent.\n\nThe Scientific Advisory Committee on Nutrition (SACN) says studies on using vitamin D for treating or preventing chest infections showed insufficient evidence to recommend it for this.",
+  "@vitaminDContent": {
+    "type": "text",
+    "description": "Vitamin D content",
+    "placeholders": {}
   }
 }
