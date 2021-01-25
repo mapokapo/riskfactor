@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:riskfactor/constants/routes.dart';
 import 'package:riskfactor/pages/home/NutritionPage.dart';
+import 'package:riskfactor/pages/home/VitaminNutritionInfoPage.dart';
+import 'package:riskfactor/state/LanguageNotifier.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -37,7 +41,15 @@ class VitaminInfoPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    launch(data.vitaminUrl);
+                    if (Provider.of<LanguageNotifier>(context, listen: false)
+                            .currentLocale
+                            .languageCode ==
+                        "en")
+                      launch(data.vitaminUrl);
+                    else
+                      Navigator.of(context).pushNamed(
+                          Routes.vitaminNutritionInfo,
+                          arguments: VitaminNutritionInfoPageArguments(data));
                   },
                   child: Text(
                     AppLocalizations.of(context).viewMoreInfo,

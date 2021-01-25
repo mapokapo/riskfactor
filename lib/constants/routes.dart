@@ -13,6 +13,7 @@ import 'package:riskfactor/pages/home/HomePage.dart';
 import 'package:riskfactor/pages/home/NutritionPage.dart';
 import 'package:riskfactor/pages/home/SettingsPage.dart';
 import 'package:riskfactor/pages/home/VitaminInfoPage.dart';
+import 'package:riskfactor/pages/home/VitaminNutritionInfoPage.dart';
 
 class Routes {
   static const String landing = '/landing';
@@ -26,6 +27,7 @@ class Routes {
   static const String settings = '/settings';
   static const String nutrition = '/nutrition';
   static const String vitaminInfo = '/vitaminInfo';
+  static const String vitaminNutritionInfo = '/vitaminNutritionInfo';
 
   static Map<String, Widget Function(BuildContext context)> routes() {
     return {
@@ -40,6 +42,7 @@ class Routes {
       '/settings': (_) => SettingsPage(),
       '/nutrition': (_) => NutritionPage(),
       '/vitaminInfo': (_) => VitaminInfoPage(),
+      '/vitaminNutritionInfo': (_) => VitaminNutritionInfoPage(),
     };
   }
 }

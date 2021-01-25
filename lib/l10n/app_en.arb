@@ -599,5 +599,11 @@
     "type": "text",
     "description": "Vitamin D content",
     "placeholders": {}
+  },
+  "nutritionValues": "Nutrition values for vitamins",
+  "@nutritionValues": {
+    "type": "text",
+    "description": "Nutrition values for vitamins",
+    "placeholders": {}
   }
 }

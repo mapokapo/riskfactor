@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:riskfactor/constants/routes.dart';
 import 'package:riskfactor/pages/home/Covid19TestResultsPage.dart';
-import 'package:riskfactor/state/LanguageNotifier.dart';
 import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
