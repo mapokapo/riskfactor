@@ -314,6 +314,13 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ListTile(
+                leading: Icon(Icons.help),
+                title: Text(AppLocalizations.of(context).help),
+                onTap: () {
+                  Navigator.of(context).pushNamed(Routes.help);
+                },
+              ),
+              ListTile(
                 leading: Icon(Icons.logout),
                 title: Text(AppLocalizations.of(context).signOut),
                 onTap: () {

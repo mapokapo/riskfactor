@@ -605,5 +605,35 @@
     "type": "text",
     "description": "Nutrition values for vitamins",
     "placeholders": {}
+  },
+  "help": "Support",
+  "@help": {
+    "type": "text",
+    "description": "Support",
+    "placeholders": {}
+  },
+  "sendMail": "Write a message subject and body, then send it to the Riskfactor team",
+  "@sendMail": {
+    "type": "text",
+    "description": "Write a message subject and body, then send it to the Riskfactor team",
+    "placeholders": {}
+  },
+  "emailSent": "Email sent successfully",
+  "@emailSent": {
+    "type": "text",
+    "description": "Email sent successfully",
+    "placeholders": {}
+  },
+  "subject": "Subject",
+  "@subject": {
+    "type": "text",
+    "description": "Subject",
+    "placeholders": {}
+  },
+  "body": "Body",
+  "@body": {
+    "type": "text",
+    "description": "Body",
+    "placeholders": {}
   }
 }

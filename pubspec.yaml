@@ -39,6 +39,7 @@ dependencies:
   material_design_icons_flutter: ^4.0.5755
   url_launcher: ^5.7.10
   translator: ^0.1.5
+  flutter_email_sender: ^4.0.0
 
 dev_dependencies:
   flutter_test:

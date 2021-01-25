@@ -8,6 +8,7 @@ import 'package:riskfactor/pages/auth/ForgotPassPage.dart';
 import 'package:riskfactor/pages/home/Covid19TestPage.dart';
 import 'package:riskfactor/pages/home/Covid19TestResultsInfoPage.dart';
 import 'package:riskfactor/pages/home/Covid19TestResultsPage.dart';
+import 'package:riskfactor/pages/home/HelpPage.dart';
 
 import 'package:riskfactor/pages/home/HomePage.dart';
 import 'package:riskfactor/pages/home/NutritionPage.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String nutrition = '/nutrition';
   static const String vitaminInfo = '/vitaminInfo';
   static const String vitaminNutritionInfo = '/vitaminNutritionInfo';
+  static const String help = '/help';
 
   static Map<String, Widget Function(BuildContext context)> routes() {
     return {
@@ -43,6 +45,7 @@ class Routes {
       '/nutrition': (_) => NutritionPage(),
       '/vitaminInfo': (_) => VitaminInfoPage(),
       '/vitaminNutritionInfo': (_) => VitaminNutritionInfoPage(),
+      '/help': (_) => Helppage(),
     };
   }
 }
