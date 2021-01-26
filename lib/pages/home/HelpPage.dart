@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +19,6 @@ class _HelpPageState extends State<HelpPage> {
     Form.of(context).save();
     if (Form.of(context).validate() && _body != null && _subject != null) {
       FocusScope.of(context).unfocus();
-      final String userEmail =
-          Provider.of<FirebaseAuth>(context, listen: false).currentUser.email;
       final Email email = Email(
         body: _body,
         subject: _subject,
