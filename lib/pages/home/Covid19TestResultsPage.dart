@@ -18,7 +18,52 @@ class Covid19TestResultsPageArguments {
 }
 
 class Covid19TestResultsPage extends StatelessWidget {
-  Widget informationTile(BuildContext context, int caseNumber) {
+  Widget _dailyVitaminIntake(BuildContext context, DocumentSnapshot userData) {
+    final data = userData.data();
+    final int age = int.parse(data['age']);
+    final bool isMale = data['gender'] == "male" ? true : false;
+    final Map<String, double> intake = {
+      'A': isMale ? 0.9 : 0.7,
+      'B6': isMale ? (age > 50 ? 1.7 : 1.3) : (age > 50 ? 1.5 : 1.3),
+      'C': isMale ? 90 : 75,
+      'D': age > 70 ? 0.015 : 0.02,
+      'B12': isMale ? 0.0024 : 0.0018,
+    };
+
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Material(
+        color: Theme.of(context).primaryColor.withAlpha(75),
+        child: Column(
+          children: [
+            ...intake.entries.map((e) {
+              String vitamin = e.key;
+              double mg = e.value;
+              int index = intake.values.toList().indexOf(mg);
+              return Container(
+                color: index % 2 == 1
+                    ? Theme.of(context).primaryColor.withAlpha(50)
+                    : null,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Vitamin " + vitamin),
+                      Text(mg.toString() + "mg"),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget informationTile(
+      BuildContext context, int caseNumber, DocumentSnapshot userData) {
     return Material(
       color: Provider.of<ThemeNotifier>(context).darkTheme
           ? Colors.grey.shade900
@@ -46,6 +91,16 @@ class Covid19TestResultsPage extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Text(
+              AppLocalizations.of(context).vitaminRecommendation,
+              style: Theme.of(context).textTheme.bodyText1,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          _dailyVitaminIntake(context, userData),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Text(
               AppLocalizations.of(context).ourRecommendations,
               style: Theme.of(context).textTheme.bodyText1,
               textAlign: TextAlign.center,
@@ -60,8 +115,12 @@ class Covid19TestResultsPage extends StatelessWidget {
     );
   }
 
-  Widget _showResults(BuildContext context, DocumentReference data,
-      List<TestQuestion> questions, int previousCaseNumber) {
+  Widget _showResults(
+      BuildContext context,
+      DocumentSnapshot userData,
+      DocumentReference docRef,
+      List<TestQuestion> questions,
+      int previousCaseNumber) {
     List<List<Color>> colorPairs = [
       [
         Theme.of(context).primaryColor,
@@ -88,7 +147,7 @@ class Covid19TestResultsPage extends StatelessWidget {
         ? previousCaseNumber
         : calculateCovid19TestResults(questions);
     return FutureBuilder(
-        future: data.update({
+        future: docRef.update({
           "infection_status": caseNumber,
         }),
         builder: (context, snapshot) {
@@ -141,7 +200,7 @@ class Covid19TestResultsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  informationTile(context, caseNumber),
+                  informationTile(context, caseNumber, userData),
                 ],
               ),
             );
@@ -212,8 +271,8 @@ class Covid19TestResultsPage extends StatelessWidget {
                         image: AssetImage('assets/images/background.png'),
                       ),
                     ),
-                    child: _showResults(
-                        context, currentUserDoc, questions, previousCaseNumber),
+                    child: _showResults(context, snapshot.data, currentUserDoc,
+                        questions, previousCaseNumber),
                   );
                 } else if (snapshot.hasError) {
                   return BackdropFilter(

@@ -107,5 +107,6 @@
   "body": "Poruka",
   "foodVitamins": "Vitamini u hrani",
   "foodNutrients": "Prehrambene činjenice",
-  "fruitNames": "Jabuka_Breskva_Avokado_Banana_Mrkva_Jaja_Mango_Meso_Mlijeko_Paprika_Šipak_Krumpir_Bundeva_Sjemenke_Jagode_Tuna"
+  "fruitNames": "Jabuka_Breskva_Avokado_Banana_Mrkva_Jaja_Mango_Meso_Mlijeko_Paprika_Šipak_Krumpir_Bundeva_Sjemenke_Jagode_Tuna",
+  "vitaminRecommendation": "Mnogi izvori dokazuju da vitamini, posebno vitamin D, mogu pomoći u borbi protiv COVID-19 koronavirusa. Evo vašeg preporučenog dnevnog unosa vitamina"
 }
