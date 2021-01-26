@@ -148,6 +148,25 @@ class NutritionPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: ListView(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(AppLocalizations.of(context).foodVitamins),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.vitaminInFoods);
+                      },
+                      child: Text(
+                        AppLocalizations.of(context).viewMoreInfo,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               ...data.map((e) => vitaminCard(context, e)),
             ],
           ),

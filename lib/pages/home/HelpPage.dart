@@ -6,12 +6,12 @@ import 'package:riskfactor/state/ThemeNotifier.dart';
 import 'package:riskfactor/widgets/AuthForm.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Helppage extends StatefulWidget {
+class HelpPage extends StatefulWidget {
   @override
-  _HelppageState createState() => _HelppageState();
+  _HelpPageState createState() => _HelpPageState();
 }
 
-class _HelppageState extends State<Helppage> {
+class _HelpPageState extends State<HelpPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _body;
   String _subject;

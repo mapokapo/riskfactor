@@ -39,6 +39,7 @@ dependencies:
   material_design_icons_flutter: ^4.0.5755
   url_launcher: ^5.7.10
   translator: ^0.1.5
+  expandable: ^4.1.4
   flutter_email_sender: ^4.0.0
 
 dev_dependencies:
@@ -62,6 +63,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

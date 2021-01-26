@@ -635,5 +635,23 @@
     "type": "text",
     "description": "Body",
     "placeholders": {}
+  },
+  "foodVitamins": "Vitamins in food",
+  "@foodVitamins": {
+    "type": "text",
+    "description": "Vitamins in food",
+    "placeholders": {}
+  },
+  "foodNutrients": "Nutrition facts",
+  "@foodNutrients": {
+    "type": "text",
+    "description": "Nutrition facts",
+    "placeholders": {}
+  },
+  "fruitNames": "Apple_Apricot_Avocado_Banana_Carrot_Eggs_Mango_Meat_Milk_Pepper_Pomegranate_Potato_Pumpkin_Seeds_Strawberry_Tuna",
+  "@fruitNames": {
+    "type": "text",
+    "description": "Fruit Names",
+    "placeholders": {}
   }
 }

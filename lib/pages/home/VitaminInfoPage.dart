@@ -29,7 +29,10 @@ class VitaminInfoPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: ListView(
             children: [
-              Image.asset(data.thumbnail),
+              Material(
+                elevation: 8.0,
+                child: Image.asset(data.thumbnail),
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(

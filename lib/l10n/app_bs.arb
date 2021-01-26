@@ -104,5 +104,8 @@
   "sendMail": "Upišite naslov i tekst vaše poruke te pošaljite Riskfactor timu",
   "emailSent": "Email uspješno poslan",
   "subject": "Naslov",
-  "body": "Poruka"
+  "body": "Poruka",
+  "foodVitamins": "Vitamini u hrani",
+  "foodNutrients": "Prehrambene činjenice",
+  "fruitNames": "Jabuka_Breskva_Avokado_Banana_Mrkva_Jaja_Mango_Meso_Mlijeko_Paprika_Šipak_Krumpir_Bundeva_Sjemenke_Jagode_Tuna"
 }
