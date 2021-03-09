@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:riskfactor/state/ThemeNotifier.dart';
 
 class CaseInfo {
   String title;
@@ -89,7 +91,9 @@ class Covid19TestResultsInfoPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   caseInfos[index],
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        color: Colors.black,
+                      ),
                 ),
               ),
             ],
@@ -106,8 +110,8 @@ class Covid19TestResultsInfoPage extends StatelessWidget {
           title: AppLocalizations.of(context).case1Name,
           body: AppLocalizations.of(context).case1Info,
           backgroundColor: Color(0xFFFFDADD),
-          lightColor: Theme.of(context).primaryColorLight,
-          foregroundColor: Theme.of(context).primaryColor),
+          lightColor: Colors.red.shade200,
+          foregroundColor: Colors.red.shade600),
       CaseInfo(
         title: AppLocalizations.of(context).case2Name,
         body: AppLocalizations.of(context).case2Info,
@@ -153,7 +157,11 @@ class Covid19TestResultsInfoPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   AppLocalizations.of(context).caseMeanings,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Provider.of<ThemeNotifier>(context).darkTheme
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),

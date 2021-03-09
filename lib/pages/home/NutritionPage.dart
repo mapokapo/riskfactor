@@ -70,7 +70,7 @@ class NutritionPage extends StatelessWidget {
               ),
               ButtonBar(
                 children: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(Routes.vitaminInfo,
                           arguments: VitaminInfoPageArguments(vitaminData));

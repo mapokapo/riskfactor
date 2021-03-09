@@ -56,7 +56,7 @@ class SettingsPage extends StatelessWidget {
                   onTap: () {
                     showDialog(
                       context: context,
-                      child: SimpleDialog(
+                      builder: (_) => SimpleDialog(
                         title: Text(
                           AppLocalizations.of(context).chooseLanguage,
                           style: Theme.of(context).textTheme.bodyText1,

@@ -49,7 +49,7 @@ class Covid19ResultsInfo extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                child: SimpleDialog(
+                builder: (_) => SimpleDialog(
                   title: Text(
                     AppLocalizations.of(context).callHospital,
                     style: Theme.of(context).textTheme.bodyText1,

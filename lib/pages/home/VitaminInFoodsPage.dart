@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:riskfactor/state/ThemeNotifier.dart';
 
 class FoodData {
   String name;
@@ -19,6 +21,10 @@ class VitaminInFoodsPage extends StatelessWidget {
         child: Material(
           elevation: 4.0,
           child: ExpandablePanel(
+            theme: ExpandableThemeData(
+                iconColor: Provider.of<ThemeNotifier>(context).darkTheme
+                    ? Colors.white
+                    : Colors.black),
             header: Wrap(
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
