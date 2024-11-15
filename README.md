@@ -1,17 +1,75 @@
-Naziv aplikacije: Riskfactor
-Kratak opis aplikacije: Jednostavno praćenje i savjetovanje u vezi koronavirusa COVID-19
-Pun opis aplikacije:
+<p align="center">
+  <a href="https://github.com/mapokapo/riskfactor-app">
+    <img src="assets/images/app_icon_512.png" alt="Logo" width="80" height="80">
+  </a>
 
-```
-Riskfactor je aplikacija koja ima namjeru da vam dadne sigurno i bezbrižno testiranje, praćenje, i djelovanje na koronavirus COVID-19.
+  <h3 align="center">Riskfactor</h3>
 
-U aplikaciju se možete prijaviti putem formulara koji zahtijeva neke osnovne informacije o vama, te možete popuniti test koji vam izračunava mogućnost zaraze sa koronavirusom. Dalje možete pročitati preporučene korake u slučaju veće mogućnosti zaraze.
+  <p align="center">
+    A simple app for tracking and advising on COVID-19.
+    <br />
+    <a href="https://github.com/mapokapo/riskfactor/blob/master/slike">View Screenshots</a>
+    ·
+    <a href="https://github.com/mapokapo/riskfactor/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mapokapo/riskfactor/issues">Request Feature</a>
+  </p>
+</p>
 
-Mogućnost zaraze se prati putem sustava brojeva koji karakteriziraju vaše zdravstveno stanje, krećući od 5, što označava minimalan rizik od zaraze, do 1, što označava već napredovane simptome COVID-19 koronavirusa.
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#application-structure">Application Structure</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#code-overview">Code Overview</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-U slučaju zaraze, Riskfactor vam pruža lagan način da kontaktirate najbliže medicinske ustanove ili hitne službe.
-```
+## About The Project
 
-Izdvojene i opisane cjeline i struktura aplikacije: Aplikacija koristi zadanu strukturu svih Flutter aplikacija. Većina koda se nalazi u lib/pages/ folderu, gdje se nalaze pojedinačni prozori aplikacije.
-Opis funkcionalnosti aplikacije: Nakon što se prijavite putem formulara unutar aplikacije, dovedeni ste na početnu stranicu gdje su pokazani vaši podatci. Na dnu preko dugmeta možete započeti COVID-19 test, te dobiti rezultate i preporučene korake. Zatim možete pročitati dodane informacije ili kontaktirati medicinske služe. Također na početnoj stranici možete naći meni u gornjem lijevom kutu, putem kojeg možete mijenjati temu aplikacije između svijetle i tamne, odjaviti se, ili viditi dodatne postavke.
-Kratak opis koda: Kod je pisan prateći zadane preporučene sljednice Flutter aplikacija. Razni dijelovi aplikacije su podijeljeni u različite foldere koji prema svojem imenu opisuju funkciju.
+<div align="center">
+  <img src="slike/Screenshot_1611676827.png" width="200" />
+  <img src="slike/Screenshot_1611676848.png" width="200" />
+  <img src="slike/Screenshot_1611680781.png" width="200" />
+</div>
+
+Riskfactor is an application designed to provide secure and seamless testing, tracking, and action recommendations related to COVID-19. 
+
+Using the app, users can log in via a form requiring basic information and complete a test that calculates their risk of infection. The app then suggests recommended steps if there’s a higher likelihood of infection. 
+
+The infection risk is measured using a numeric system representing the user's health status, ranging from 5 (minimal risk) to 1 (advanced symptoms of COVID-19). 
+
+In the case of infection, Riskfactor offers an easy way to contact nearby medical facilities or emergency services.
+
+### Built With
+
+- [Flutter](https://flutter.dev/)
+
+## Application Structure
+
+The app uses the default structure of Flutter applications. Most of the code is located in the `lib/pages/` folder, which contains the individual screens of the app.
+
+## Features
+
+- **Login and Dashboard**: Log in via a form and view your data on the dashboard.  
+- **COVID-19 Test**: Start a test via a button on the dashboard to calculate your risk and receive recommended steps.  
+- **Additional Information and Contacts**: Access extra information or contact medical services directly.  
+- **Theme Switching**: Use the menu in the top-left corner to switch between light and dark modes.  
+- **Settings and Logout**: Access additional settings or log out via the menu.
+
+## Code Overview
+
+The code is written following the recommended practices for Flutter applications. Different parts of the app are separated into folders whose names describe their functionality.
+
+## Contact
+
+Leo Petrovic - leopetrovic11@gmail.com
+
+Project Link: [https://github.com/mapokapo/riskfactor](https://github.com/mapokapo/riskfactor)
